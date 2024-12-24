@@ -16,13 +16,23 @@ const Registration = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const pass = form.password.value;
+
+    // Password validation using regex
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[^\s]{6,}$/; // At least 6 chars, 1 digit, 1 uppercase, no whitespace
+    if (!passwordRegex.test(pass)) {
+      toast.error(
+        "Password must be at least 6 characters, contain 1 digit, and 1 uppercase letter."
+      );
+      return null;
+    }
+
     try {
       //2. User Registration
       const result = await createUser(email, pass);
       // console.log(result)
       await updateUserProfile(name, photo);
       setUser({ ...result.user, photoURL: photo, displayName: name });
-      toast.success("Signup Successful, redirecting to Login");
+      toast.success("Signup Successful, Login now");
 
       logOut(); //log out user to redirect
       navigate("/login"); //redirect to login
@@ -61,6 +71,7 @@ const Registration = () => {
                 Username
               </label>
               <input
+                required
                 id="name"
                 autoComplete="name"
                 name="name"
@@ -76,6 +87,7 @@ const Registration = () => {
                 Photo URL
               </label>
               <input
+                required
                 id="photo"
                 autoComplete="photo"
                 name="photo"
@@ -91,6 +103,7 @@ const Registration = () => {
                 Email Address
               </label>
               <input
+                required
                 id="LoggingEmailAddress"
                 autoComplete="email"
                 name="email"
@@ -110,6 +123,7 @@ const Registration = () => {
               </div>
 
               <input
+                required
                 id="loggingPassword"
                 autoComplete="current-password"
                 name="password"
