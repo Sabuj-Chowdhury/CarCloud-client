@@ -10,7 +10,7 @@ const Navbar = ({ isLoggedIn }) => {
   };
 
   return (
-    <nav className="bg-gray-100 py-4 shadow-md sticky top-0 z-10">
+    <nav className="bg-gray-100 py-4 shadow-md ">
       <div className="container mx-auto px-4 flex justify-between items-center">
         <div className="flex items-center">
           <img src={logo} alt="CarCloud Logo" className="h-10 mr-2" />
