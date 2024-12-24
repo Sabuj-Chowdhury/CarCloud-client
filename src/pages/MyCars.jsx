@@ -40,7 +40,7 @@ const MyCars = () => {
       await axios.delete(`${import.meta.env.VITE_URL}/car/${id}`);
       fetchCars(); // Update the UI after deletion
     } catch (err) {
-      console.error(err.message);
+      toast.error(err.message);
     }
   };
 
