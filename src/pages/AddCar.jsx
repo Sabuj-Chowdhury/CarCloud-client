@@ -1,11 +1,21 @@
 import { useContext, useRef } from "react";
 import AuthContext from "../context/AuthContext";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
   const formRef = useRef(); // Create a ref for the form
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  // for reset the form
+  const handleReset = () => {
+    const form = formRef.current;
+    form.reset();
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
@@ -17,8 +27,20 @@ const AddCar = () => {
       name: user?.displayName || {},
     };
     newCar.dateAdded = new Date().toISOString();
-    newCar.bookingStatus = 0; //default count
+    newCar.bookingStatus = "open"; //default status
+    newCar.bookingCount = 0; // default count
     // console.log(newCar);
+    try {
+      //  post request
+      await axios.post(`${import.meta.env.VITE_URL}/add-car`, newCar);
+      //  Reset form
+      handleReset();
+      //  Show toast and navigate
+      toast.success("Data Added Successfully!!!");
+      navigate("/my-cars");
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
