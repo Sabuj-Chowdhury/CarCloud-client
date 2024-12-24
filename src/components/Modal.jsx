@@ -1,11 +1,55 @@
+// import axios from "axios";
+import { useContext, useRef } from "react";
+// import toast from "react-hot-toast";
+import AuthContext from "../context/AuthContext";
+
 const Modal = ({ carId }) => {
-  console.log(carId);
+  console.log(typeof carId);
+
+  const { user } = useContext(AuthContext);
+
+  const formRef = useRef(); // Create a ref for the form
+
+  // for reset the form
+  const handleReset = () => {
+    const form = formRef.current;
+    form.reset();
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const initialData = Object.fromEntries(formData.entries());
+    // console.log(initialData);
+    const { ...newCar } = initialData;
+    newCar.features = newCar.features.split(",");
+    newCar.owner = {
+      email: user?.email,
+      name: user?.displayName || {},
+    };
+    // newCar.dateAdded = new Date();
+    // newCar.bookingStatus = "open"; //default status
+    // newCar.bookingCount = 0; // default count
+    console.log(newCar);
+
+    // try {
+    //   //  post request
+    //   await axios.post(`${import.meta.env.VITE_URL}/add-car`, newCar);
+    //   //  Reset form
+
+    //   //  Show toast and navigate
+    //   toast.success("Data Added Successfully!!!");
+
+    // } catch (err) {
+    //   toast.error(err.message);
+    // }
+  };
 
   return (
     <dialog id="update_modal" className="modal">
       <div className="modal-box">
         <h3 className="font-bold text-lg">Update Car Details</h3>
-        <form className="space-y-4">
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             name="model"

@@ -15,8 +15,6 @@ const MyCars = () => {
 
   const [selectedCarId, setSelectedCarId] = useState(null);
 
-  // const [currentCar, setCurrentCar] = useState({});
-
   useEffect(() => {
     if (user?.email) {
       axios
