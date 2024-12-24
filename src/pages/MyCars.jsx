@@ -6,6 +6,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyCars = () => {
   const { user } = useContext(AuthContext);
@@ -46,8 +47,8 @@ const MyCars = () => {
       const { data } = await axios.delete(
         `${import.meta.env.VITE_URL}/car/${id}`
       );
-      toast.success("Data deleted successfully!!!!");
-      // to update ui
+
+      // to update UI
       axios
         .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
         .then((res) => {
@@ -92,73 +93,86 @@ const MyCars = () => {
       <h2 className="text-2xl text-center font-bold mb-6 text-[#4a4a48]">
         My Listed Cars
       </h2>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-[#d9f3e5] text-[#4a4a48]">
-              <th className="p-3 border">Car Image</th>
-              <th className="p-3 border">Car Model</th>
-              <th className="p-3 border">Daily Rental Price</th>
-              <th className="p-3 border">Availability</th>
-              <th className="p-3 border">Date Added</th>
-              <th className="p-3 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cars.map((car, idx) => (
-              <tr key={idx} className="odd:bg-[#fef9e7] even:bg-[#fcf4e9]">
-                <td className="p-3 border text-center">
-                  <img
-                    src={car.imageUrl}
-                    alt={car.model}
-                    className="w-20 h-20 object-cover rounded"
-                  />
-                </td>
-                <td className="p-3 border text-center text-[#4a4a48]">
-                  {car.model}
-                </td>
-                <td className="p-3 border text-center text-[#4a4a48]">
-                  ${car.price}/day
-                </td>
-                <td
-                  className={`p-3 border text-center font-semibold ${
-                    car.availability === "Available"
-                      ? "text-green-600"
-                      : "text-red-500"
-                  }`}
-                >
-                  {car.availability}
-                </td>
-                <td className="p-3 border text-center text-[#4a4a48]">
-                  {format(new Date(car.dateAdded), "dd/MM/yyyy")}
-                </td>
-                <td className="p-3 border text-center">
-                  {/* update button */}
-                  <button
-                    className="mx-2 p-2 bg-[#6d4d7c] text-white rounded hover:bg-[#5a3b66]"
-                    // onClick={() => {
-                    //   setCurrentCar(car); // Set the current car for editing
-                    //   if (modalRef.current) {
-                    //     modalRef.current.showModal(); // Show the modal using ref
-                    //   }
-                    // }}
-                  >
-                    <FaEdit />
-                  </button>
 
-                  {/* delete button */}
-                  <button
-                    onClick={() => handleCustomDelete(car._id)}
-                    className="mx-2 p-2 bg-[#d9534f] text-white rounded hover:bg-[#c9302c]"
-                  >
-                    <FaTrashAlt />
-                  </button>
-                </td>
+      {/* if no cars is added */}
+      {cars.length === 0 ? (
+        <div className="text-center">
+          <p className="text-lg text-gray-600">
+            You haven't added any cars yet.
+          </p>
+          <Link to="/add-car" className="text-blue-600 hover:underline">
+            Add a Car
+          </Link>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="bg-[#d9f3e5] text-[#4a4a48]">
+                <th className="p-3 border">Car Image</th>
+                <th className="p-3 border">Car Model</th>
+                <th className="p-3 border">Daily Rental Price</th>
+                <th className="p-3 border">Availability</th>
+                <th className="p-3 border">Date Added</th>
+                <th className="p-3 border">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {cars.map((car, idx) => (
+                <tr key={idx} className="odd:bg-[#fef9e7] even:bg-[#fcf4e9]">
+                  <td className="p-3 border text-center">
+                    <img
+                      src={car.imageUrl}
+                      alt={car.model}
+                      className="w-20 h-20 object-cover rounded"
+                    />
+                  </td>
+                  <td className="p-3 border text-center text-[#4a4a48]">
+                    {car.model}
+                  </td>
+                  <td className="p-3 border text-center text-[#4a4a48]">
+                    ${car.price}/day
+                  </td>
+                  <td
+                    className={`p-3 border text-center font-semibold ${
+                      car.availability === "Available"
+                        ? "text-green-600"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {car.availability}
+                  </td>
+                  <td className="p-3 border text-center text-[#4a4a48]">
+                    {format(new Date(car.dateAdded), "dd/MM/yyyy")}
+                  </td>
+                  <td className="p-3 border text-center">
+                    {/* update button */}
+                    <button
+                      className="mx-2 p-2 bg-[#6d4d7c] text-white rounded hover:bg-[#5a3b66]"
+                      // onClick={() => {
+                      //   setCurrentCar(car); // Set the current car for editing
+                      //   if (modalRef.current) {
+                      //     modalRef.current.showModal(); // Show the modal using ref
+                      //   }
+                      // }}
+                    >
+                      <FaEdit />
+                    </button>
+
+                    {/* delete button */}
+                    <button
+                      onClick={() => handleCustomDelete(car._id)}
+                      className="mx-2 p-2 bg-[#d9534f] text-white rounded hover:bg-[#c9302c]"
+                    >
+                      <FaTrashAlt />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       {/* Update Modal
       {currentCar && (
