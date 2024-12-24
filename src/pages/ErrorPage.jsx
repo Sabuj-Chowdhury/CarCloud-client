@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const ErrorPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || "/";
+  const handleGoBack = () => {
+    navigate(from, { replace: true });
+  };
+
   return (
     <section className="bg-white ">
       <div className="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">
@@ -15,7 +22,10 @@ const ErrorPage = () => {
           </p>
 
           <div className="flex items-center mt-6 gap-x-3">
-            <button className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto hover:bg-gray-100 ">
+            <button
+              onClick={handleGoBack}
+              className="flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto hover:bg-gray-100 "
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -30,6 +40,7 @@ const ErrorPage = () => {
                   d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
                 />
               </svg>
+              {/* How do I implement go back ? */}
 
               <span>Go back</span>
             </button>
@@ -46,7 +57,7 @@ const ErrorPage = () => {
         <div className="relative w-full mt-8 lg:w-1/2 lg:mt-0">
           <img
             className=" w-full lg:h-[32rem] h-80 md:h-96 rounded-lg object-cover "
-            src="https://images.unsplash.com/photo-1710896208218-cd21e448b800?q=80&w=2783&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://media1.tenor.com/m/U5hmONvZGo8AAAAd/mmt-error-error.gif"
             alt=""
           />
         </div>
