@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import AuthContext from "../context/AuthContext";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -12,10 +12,10 @@ import Modal from "../components/Modal";
 const MyCars = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
-
   const [selectedCarId, setSelectedCarId] = useState(null);
 
-  useEffect(() => {
+  // Fetch data function
+  const fetchCars = useCallback(() => {
     if (user?.email) {
       axios
         .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
@@ -28,28 +28,23 @@ const MyCars = () => {
     }
   }, [user?.email]);
 
-  // delete function
+  useEffect(() => {
+    if (user?.email) {
+      fetchCars();
+    }
+  }, [fetchCars, user?.email]);
+
+  // Delete function
   const handleDelete = async (id) => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_URL}/car/${id}`
-      );
-
-      // to update UI
-      axios
-        .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
-        .then((res) => {
-          setCars(res.data);
-        })
-        .catch((err) => {
-          toast.error(err.message);
-        });
+      await axios.delete(`${import.meta.env.VITE_URL}/car/${id}`);
+      fetchCars(); // Update the UI after deletion
     } catch (err) {
-      console.log(err.message);
+      console.error(err.message);
     }
   };
 
-  // confirmation delete
+  // Confirmation delete
   const handleCustomDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -64,28 +59,28 @@ const MyCars = () => {
         handleDelete(id);
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
+          text: "Your car has been deleted.",
           icon: "success",
         });
       }
     });
   };
 
-  if (!user) {
-    return <LoadingSpinner></LoadingSpinner>;
-  }
-
   const handleUpdateClick = (id) => {
     setSelectedCarId(id);
     document.getElementById("update_modal").showModal();
   };
+
+  // if no user or null
+  if (!user) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="mx-auto p-6 bg-[#fdf4e3] rounded shadow-md">
       <h2 className="text-2xl text-center font-bold mb-6 text-[#4a4a48]">
         My Listed Cars
       </h2>
-      {/* if no cars is added */}
       {cars.length === 0 ? (
         <div className="text-center">
           <p className="text-lg text-gray-600">
@@ -137,15 +132,12 @@ const MyCars = () => {
                     {format(new Date(car.dateAdded), "dd/MM/yyyy")}
                   </td>
                   <td className="p-3 border text-center">
-                    {/* update button */}
                     <button
                       onClick={() => handleUpdateClick(car._id)}
                       className="mx-2 p-2 bg-[#6d4d7c] text-white rounded hover:bg-[#5a3b66]"
                     >
                       <FaEdit />
                     </button>
-
-                    {/* delete button */}
                     <button
                       onClick={() => handleCustomDelete(car._id)}
                       className="mx-2 p-2 bg-[#d9534f] text-white rounded hover:bg-[#c9302c]"
@@ -159,9 +151,8 @@ const MyCars = () => {
           </table>
         </div>
       )}
-
-      {/* Update Modal */}
-      <Modal carId={selectedCarId} />
+      {/* update modal */}
+      <Modal carId={selectedCarId} refreshCars={fetchCars} />
     </div>
   );
 };

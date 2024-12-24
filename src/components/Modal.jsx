@@ -4,10 +4,12 @@ import AuthContext from "../context/AuthContext";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const Modal = ({ carId }) => {
+const Modal = ({ carId, refreshCars }) => {
   //   console.log(carId);
 
-  const [car, setCar] = useState();
+  const [car, setCar] = useState({});
+  const { user } = useContext(AuthContext);
+  const formRef = useRef(); // Create a ref for the form
 
   useEffect(() => {
     if (carId) {
@@ -23,10 +25,6 @@ const Modal = ({ carId }) => {
   }, [carId]);
   //   console.log(car);
 
-  const { user } = useContext(AuthContext);
-
-  const formRef = useRef(); // Create a ref for the form
-
   // for reset the form
   const handleReset = () => {
     const form = formRef.current;
@@ -37,29 +35,31 @@ const Modal = ({ carId }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
-    // console.log(initialData);
     const { ...newCar } = initialData;
     newCar.features = newCar.features.split(",");
     newCar.owner = {
       email: user?.email,
       name: user?.displayName || {},
     };
-    // newCar.dateAdded = new Date();
-    // newCar.bookingStatus = "open"; //default status
-    // newCar.bookingCount = 0; // default count
+    newCar.dateAdded = new Date();
+    newCar.bookingStatus = car.bookingStatus;
+    newCar.bookingCount = car.bookingCount;
     console.log(newCar);
 
-    // try {
-    //   //  post request
-    //   await axios.post(`${import.meta.env.VITE_URL}/add-car`, newCar);
-    //   //  Reset form
-
-    //   //  Show toast and navigate
-    //   toast.success("Data Added Successfully!!!");
-
-    // } catch (err) {
-    //   toast.error(err.message);
-    // }
+    try {
+      //  post request
+      await axios.put(`${import.meta.env.VITE_URL}/update/${carId}`, newCar);
+      //  Reset form
+      handleReset();
+      //  Show toast
+      toast.success("Data Updated Successfully!!!");
+      // Close modal after success
+      document.getElementById("update_modal").close();
+      // Refresh the car list in the parent component
+      refreshCars();
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   return (
