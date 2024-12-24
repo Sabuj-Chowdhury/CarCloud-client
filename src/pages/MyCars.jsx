@@ -5,6 +5,7 @@ import AuthContext from "../context/AuthContext";
 import LoadingSpinner from "../components/LoadingSpinner";
 import toast from "react-hot-toast";
 import { format } from "date-fns";
+import Swal from "sweetalert2";
 
 const MyCars = () => {
   const { user } = useContext(AuthContext);
@@ -40,8 +41,46 @@ const MyCars = () => {
   // };
 
   // delete function
-  const handleDelete = (id) => {
-    console.log(id);
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_URL}/car/${id}`
+      );
+      toast.success("Data deleted successfully!!!!");
+      // to update ui
+      axios
+        .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
+        .then((res) => {
+          setCars(res.data);
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  // confirmation delete
+  const handleCustomDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleDelete(id);
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   if (!user) {
@@ -109,7 +148,7 @@ const MyCars = () => {
 
                   {/* delete button */}
                   <button
-                    onClick={() => handleDelete(car._id)}
+                    onClick={() => handleCustomDelete(car._id)}
                     className="mx-2 p-2 bg-[#d9534f] text-white rounded hover:bg-[#c9302c]"
                   >
                     <FaTrashAlt />
