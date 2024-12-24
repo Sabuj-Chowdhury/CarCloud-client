@@ -1,12 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import loginbg from "../assets/login/loginbg.jpg";
 import logo from "../assets/logo.jpeg";
-
+import { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state || "/";
+
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
+
   // Google Signin
-  const handleGoogleSignIn = async () => {};
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle();
+
+      toast.success("Signin Successful");
+      navigate(from, { replace: true });
+    } catch (err) {
+      // console.log(err);
+      toast.error(err?.message);
+    }
+  };
 
   // Email Password Signin
   const handleSignIn = async (e) => {
@@ -14,6 +31,16 @@ const Login = () => {
     const form = e.target;
     const email = form.email.value;
     const pass = form.password.value;
+    // console.log({ email, pass })
+    try {
+      //User Login
+      await signIn(email, pass);
+      toast.success("Signin Successful");
+      navigate(from, { replace: true });
+    } catch (err) {
+      // console.log(err)
+      toast.error(err?.message);
+    }
   };
 
   return (
@@ -122,12 +149,15 @@ const Login = () => {
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b  md:w-1/4"></span>
 
-            <Link
-              to="/registration"
-              className="text-xs text-gray-500 uppercase  hover:underline"
-            >
-              or sign up
-            </Link>
+            <p className="text-center mt-6 text-sm text-gray-400">
+              Don't have an account?{" "}
+              <NavLink
+                to="/registration"
+                className="text-blue-400 hover:underline cursor-pointer"
+              >
+                Register here
+              </NavLink>
+            </p>
 
             <span className="w-1/5 border-b  md:w-1/4"></span>
           </div>

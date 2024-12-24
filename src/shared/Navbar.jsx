@@ -1,101 +1,139 @@
-import { useState } from "react";
-
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 
-const Navbar = ({ isLoggedIn }) => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+import { useState, useContext } from "react";
+import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+import { FaUserCircle } from "react-icons/fa";
+import AuthContext from "../context/AuthContext";
+
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const onLogout = async () => {
+    await logOut();
+    navigate("/");
   };
 
   return (
-    <nav className="bg-gray-100 py-4 shadow-md ">
-      <div className="container mx-auto px-4 flex justify-between items-center">
+    <div
+      className={`transition-colors duration-300 shadow-md bg-black text-emerald-400`}
+    >
+      {/* Navbar Header */}
+      <div className="flex justify-between items-center px-5 py-4 max-w-7xl mx-auto">
+        {/* Logo */}
         <div className="flex items-center">
-          <img src={logo} alt="CarCloud Logo" className="h-10 mr-2" />
+          <img src={logo} className="h-10 mr-2" alt="logo" />
           <span className="font-bold text-xl">CarCloud</span>
         </div>
 
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={toggleMobileMenu}
-        >
-          {/* Mobile Menu Icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+        {/* Large Screen Links */}
+        <div className="hidden md:flex items-center justify-center space-x-5 flex-1">
+          <NavLink to="/" className="hover:underline">
+            Home
+          </NavLink>
+          <NavLink to="/available-cars" className="hover:underline">
+            Available Cars
+          </NavLink>
 
-        <div
-          className={`md:flex ${
-            isMobileMenuOpen ? "flex" : "hidden"
-          } flex-col md:flex-row absolute md:relative top-full left-0 w-full md:w-auto bg-gray-100 md:bg-transparent shadow-md md:shadow-none`}
-        >
-          <ul className="md:flex space-x-6 text-gray-700 p-4 md:p-0 items-center">
-            {" "}
-            {/* Added items-center */}
-            <li>
-              <a href="/" className="hover:text-blue-500">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="/cars" className="hover:text-blue-500">
-                Available Cars
-              </a>
-            </li>
-            {isLoggedIn ? (
-              <>
-                <li>
-                  <a href="/add-car" className="hover:text-blue-500">
-                    Add Car
-                  </a>
-                </li>
-                <li>
-                  <a href="/my-cars" className="hover:text-blue-500">
-                    My Cars
-                  </a>
-                </li>
-                <li>
-                  <a href="/my-bookings" className="hover:text-blue-500">
-                    My Bookings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/logout"
-                    className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                    Logout
-                  </a>
-                </li>
-              </>
-            ) : (
-              <li>
-                <a
-                  href="/login"
-                  className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-                >
-                  Log-in
-                </a>
-              </li>
-            )}
-          </ul>
+          {user && (
+            <>
+              <NavLink to="/add-car" className="hover:underline">
+                Add Car
+              </NavLink>
+              <NavLink to="/my-cars" className="hover:underline">
+                My Cars
+              </NavLink>
+              <NavLink to="/my-bookings" className="hover:underline">
+                My Bookings
+              </NavLink>
+            </>
+          )}
+        </div>
+
+        {/* Auth Buttons  */}
+        <div className="hidden md:flex items-center space-x-4">
+          {user ? (
+            <div className="flex items-center space-x-2">
+              {/* Centered User Avatar */}
+              <div className="relative group">
+                {user.photoURL ? (
+                  <img
+                    src={user.photoURL}
+                    alt="User Avatar"
+                    referrerPolicy="no-referer"
+                    className="w-10 h-10 rounded-full cursor-pointer"
+                  />
+                ) : (
+                  <FaUserCircle className="w-10 h-10 text-gray-500 cursor-pointer" />
+                )}
+                <div className="absolute left-0 mt-2 hidden group-hover:block bg-black text-white py-1 px-2 rounded-lg shadow-lg">
+                  {user.displayName || "Anonymous User"}
+                </div>
+              </div>
+              {/* Log Out Button */}
+              <button
+                onClick={onLogout}
+                className="hover:underline text-red-500 ml-2"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <>
+              <NavLink to="/login" className="hover:underline">
+                Login
+              </NavLink>
+            </>
+          )}
+        </div>
+
+        {/* Small Screen Menu Icons */}
+        <div className="flex md:hidden items-center space-x-4">
+          <button onClick={() => setOpen(!open)} className="text-4xl">
+            {open ? <AiOutlineClose /> : <AiOutlineMenu />}
+          </button>
         </div>
       </div>
-    </nav>
+
+      {/* Collapsible Menu for Small Screens */}
+      {open && (
+        <div
+          className="absolute top-16 right-5 w-64 bg-black dark:bg-gray-800 z-10 shadow-lg rounded-lg transition-transform duration-300"
+          style={{
+            transform: open ? "translateY(0)" : "translateY(-200%)",
+          }}
+        >
+          <div className="flex flex-col items-center py-5 space-y-4">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/available-cars">Available Cars</NavLink>
+
+            {user && (
+              <>
+                <NavLink to="/my-bookings">My Bookings</NavLink>{" "}
+                <NavLink to="/add-car"> Add Car</NavLink>
+                <NavLink to="/my-cars">My Cars</NavLink>
+              </>
+            )}
+
+            {user ? (
+              <button
+                onClick={onLogout}
+                className="hover:underline text-red-500"
+              >
+                Log Out
+              </button>
+            ) : (
+              <>
+                <NavLink to="/login">Login</NavLink>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
