@@ -1,8 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 import loginbg from "../assets/login/loginbg.jpg";
+import AuthContext from "../context/AuthContext";
+import { useContext } from "react";
+import toast from "react-hot-toast";
 
 const Registration = () => {
+  const navigate = useNavigate();
+  const { logOut, createUser, updateUserProfile, setUser } =
+    useContext(AuthContext);
   const handleSignUp = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -10,6 +16,19 @@ const Registration = () => {
     const name = form.name.value;
     const photo = form.photo.value;
     const pass = form.password.value;
+    try {
+      //2. User Registration
+      const result = await createUser(email, pass);
+      // console.log(result)
+      await updateUserProfile(name, photo);
+      setUser({ ...result.user, photoURL: photo, displayName: name });
+      toast.success("Signup Successful, redirecting to Login");
+
+      logOut(); //log out user to redirect
+      navigate("/login"); //redirect to login
+    } catch (err) {
+      toast.error(err?.message);
+    }
   };
 
   return (
