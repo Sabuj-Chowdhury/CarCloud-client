@@ -25,13 +25,13 @@ const Footer = () => {
         {/* Right Section (Social Media Links) */}
         <div className="flex space-x-6 text-2xl">
           <a
-            href="#"
+            href="https://www.facebook.com/sc2706r/"
             className="text-gray-400 hover:text-white transition duration-300"
           >
             <FaFacebook />
           </a>
           <a
-            href="#"
+            href="https://x.com/SabujChowd5499"
             className="text-gray-400 hover:text-white transition duration-300"
           >
             <FaTwitter />
@@ -43,7 +43,7 @@ const Footer = () => {
             <FaInstagram />
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/in/sabuj-chowdhury-8524a1b4/"
             className="text-gray-400 hover:text-white transition duration-300"
           >
             <FaLinkedin />
