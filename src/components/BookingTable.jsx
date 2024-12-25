@@ -1,15 +1,8 @@
 import { FaTrashAlt } from "react-icons/fa";
 
 const BookingTable = ({ booking }) => {
-  const {
-    model,
-    imageUrl,
-    bookedAt,
-    price,
-    bookingStatus,
-    startDate,
-    endDate,
-  } = booking || {};
+  const { model, imageUrl, price, bookingStatus, startDate, endDate } =
+    booking || {};
 
   // Calculate the booking duration in days
   const start = new Date(startDate);
@@ -21,8 +14,14 @@ const BookingTable = ({ booking }) => {
   const total = (dailyPrice * durationInDays).toFixed(2);
 
   // Format the date and time
-  const formattedDate = new Date(bookedAt).toLocaleDateString();
-  const formattedTime = new Date(bookedAt).toLocaleTimeString([], {
+  const startFormattedDate = new Date(startDate).toLocaleDateString();
+  const startFormattedTime = new Date(startDate).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const endFormattedDate = new Date(endDate).toLocaleDateString();
+  const endFormattedTime = new Date(endDate).toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
   });
@@ -34,7 +33,8 @@ const BookingTable = ({ booking }) => {
       </td>
       <td className="p-4 border border-amber-400">{model}</td>
       <td className="p-4 border border-amber-400">
-        {formattedDate} {formattedTime}
+        {startFormattedDate} {startFormattedTime} - {endFormattedDate}{" "}
+        {endFormattedTime}
       </td>
       <td className="p-4 border border-amber-400">${total}</td>
       <td className="p-4 border border-amber-400">
