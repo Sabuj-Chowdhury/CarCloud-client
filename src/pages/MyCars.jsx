@@ -76,11 +76,42 @@ const MyCars = () => {
     return <LoadingSpinner />;
   }
 
+  // sorting function
+  const handleSort = async (e) => {
+    const selectedOption = e.target.value;
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URL}/all-cars?sort=${selectedOption}`
+      );
+      setCars(data);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
   return (
     <div className="mx-auto p-6 bg-[#fdf4e3] rounded shadow-md">
       <h2 className="text-2xl text-center font-bold mb-6 text-[#4a4a48]">
         My Listed Cars
       </h2>
+      {/* sorting  */}
+      {cars.length > 0 && (
+        <div className="flex items-center justify-end mb-4 space-x-2">
+          <label htmlFor="sortOptions" className="text-[#4a4a48] font-semibold">
+            Sort By:
+          </label>
+          <select
+            onChange={handleSort}
+            id="sortOptions"
+            className="p-2 border rounded bg-white focus:outline-none focus:ring focus:border-blue-300"
+          >
+            <option value="">Select</option>
+            <option value="asc">Price (Lowest First)</option>
+            <option value="dsc">Price (Highest First)</option>
+          </select>
+        </div>
+      )}
+
       {cars.length === 0 ? (
         <div className="text-center">
           <p className="text-lg text-gray-600">

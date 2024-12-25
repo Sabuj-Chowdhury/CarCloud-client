@@ -26,14 +26,21 @@ const AvailableCars = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-5">
           <div>
             {/* Sorting options */}
+            <label
+              htmlFor="sortOptions"
+              className="text-[#4a4a48] font-semibold"
+            >
+              Sort By:
+            </label>
             <select
               name="sorting"
               id="sorting"
               onChange={(e) => setSort(e.target.value)}
               className="border p-4 rounded-md"
             >
-              <option value="dsc">Sort By Date Added (Newest First)</option>
-              <option value="asc">Sort By Price (Lowest First)</option>
+              <option value="">Select</option>
+              <option value="asc">Price (Lowest First)</option>
+              <option value="dsc">Price (Highest First)</option>
             </select>
           </div>
           <div className=" flex items-center space-x-2">
