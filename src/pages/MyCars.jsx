@@ -91,8 +91,8 @@ const MyCars = () => {
 
   return (
     <div className="mx-auto p-6 bg-[#fdf4e3] rounded shadow-md">
-      <h2 className="text-2xl text-center font-bold mb-6 text-[#4a4a48]">
-        My Listed Cars
+      <h2 className="text-2xl md:text-4xl font-semibold  text-center mb-6 text-[#4a4a48]">
+        My Listed Cars : {cars.length}
       </h2>
       {/* sorting  */}
       {cars.length > 0 && (

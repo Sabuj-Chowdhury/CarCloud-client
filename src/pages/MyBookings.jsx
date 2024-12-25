@@ -6,6 +6,26 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import DateModal from "../components/DateModal";
+import { Bar } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -25,15 +45,10 @@ const MyBookings = () => {
 
   // cancel booking
   const handleCancel = async (id, prev, bookingStatus) => {
-    // console.log(id, prev, bookingStatus);
-    if (prev === bookingStatus) return toast.error("can't change");
-
     try {
-      const { data } = await axios.patch(
-        `${import.meta.env.VITE_URL}/booking-status/${id}`,
-        { bookingStatus }
-      );
-      // console.log(data);
+      await axios.patch(`${import.meta.env.VITE_URL}/booking-status/${id}`, {
+        bookingStatus,
+      });
       // refresh UI
       axios
         .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
@@ -50,19 +65,13 @@ const MyBookings = () => {
 
   // update booking duration
   const handleDateChange = async (id, startDate, endDate) => {
-    // console.log(id, startDate, endDate);
-
     try {
-      const { data } = await axios.patch(
-        `${import.meta.env.VITE_URL}/booking-dates/${id}`,
-        {
-          startDate,
-          endDate,
-        }
-      );
+      await axios.patch(`${import.meta.env.VITE_URL}/booking-dates/${id}`, {
+        startDate,
+        endDate,
+      });
       toast.success("Booking dates updated successfully!");
-
-      // Refresh bookings after the update
+      // refresh UI
       axios
         .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
         .then((res) => {
@@ -104,36 +113,103 @@ const MyBookings = () => {
     });
   };
 
+  // Calculate booking frequency by car model
+  const bookingFrequency = bookings.reduce((acc, booking) => {
+    const { model } = booking;
+    acc[model] = (acc[model] || 0) + 1;
+    return acc;
+  }, {});
+
+  // Prepare data for the chart
+  const chartData = {
+    labels: Object.keys(bookingFrequency), // Car models
+    datasets: [
+      {
+        label: "Booking Frequency",
+        data: Object.values(bookingFrequency), // Booking counts
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+        labels: {
+          color: "#FFC107", // Chart legend text color
+        },
+      },
+      title: {
+        display: true,
+        text: "Booking Frequency by Car Model",
+        color: "#FFC107",
+        font: {
+          size: 18,
+        },
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          color: "#FFC107", // X-axis label color
+        },
+      },
+      y: {
+        ticks: {
+          color: "#FFC107", // Y-axis label color
+        },
+        title: {
+          display: true,
+          text: "Number of Bookings",
+          color: "#FFC107",
+        },
+      },
+    },
+  };
+
   return (
     <div className="bg-black text-amber-400 min-h-screen p-4">
       <h1 className="text-2xl md:text-4xl font-semibold mb-6 text-center">
-        My Bookings
+        My Bookings : {bookings.length}
       </h1>
+
       {bookings.length > 0 ? (
-        <div className="overflow-x-auto">
-          <table className="table-auto w-full border-collapse border border-amber-500">
-            <thead>
-              <tr className="bg-amber-500 text-black">
-                <th className="p-4 border border-amber-400">Car Image</th>
-                <th className="p-4 border border-amber-400">Car Model</th>
-                <th className="p-4 border border-amber-400">Booking Date</th>
-                <th className="p-4 border border-amber-400">Total Price</th>
-                <th className="p-4 border border-amber-400">Booking Status</th>
-                <th className="p-4 border border-amber-400">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking, idx) => (
-                <BookingTable
-                  key={idx}
-                  booking={booking}
-                  openModal={openModal}
-                  handleCustomCancel={handleCustomCancel}
-                ></BookingTable>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <>
+          <div className="overflow-x-auto">
+            <table className="table-auto w-full border-collapse border border-amber-500">
+              <thead>
+                <tr className="bg-amber-500 text-black">
+                  <th className="p-4 border border-amber-400">Car Image</th>
+                  <th className="p-4 border border-amber-400">Car Model</th>
+                  <th className="p-4 border border-amber-400">Booking Date</th>
+                  <th className="p-4 border border-amber-400">Total Price</th>
+                  <th className="p-4 border border-amber-400">
+                    Booking Status
+                  </th>
+                  <th className="p-4 border border-amber-400">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {bookings.map((booking, idx) => (
+                  <BookingTable
+                    key={idx}
+                    booking={booking}
+                    openModal={openModal}
+                    handleCustomCancel={handleCustomCancel}
+                  ></BookingTable>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* chart */}
+          <div className="mb-10 bg-white p-4 rounded">
+            <Bar data={chartData} options={chartOptions} />
+          </div>
+        </>
       ) : (
         <div className="flex flex-col items-center justify-center text-center mt-10">
           <h2 className="text-xl md:text-3xl font-semibold mb-4">
@@ -152,7 +228,7 @@ const MyBookings = () => {
         </div>
       )}
 
-      {/* modal for change date  */}
+      {/* modal for change date */}
       <DateModal
         selectedBooking={selectedBooking}
         handleDateChange={handleDateChange}
