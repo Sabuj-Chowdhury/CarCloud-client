@@ -1,6 +1,26 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { useContext, useEffect, useState } from "react";
+import BookingTable from "../components/BookingTable";
+import axios from "axios";
+import AuthContext from "../context/AuthContext";
+import toast from "react-hot-toast";
 
 const MyBookings = () => {
+  const [bookings, setBookings] = useState([]);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+      .then((res) => {
+        setBookings(res.data);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
+  }, [user]);
+
+  // console.log(bookings);
+
   return (
     <div className="bg-black text-amber-400 min-h-screen p-4">
       <h1 className="text-2xl md:text-4xl font-semibold mb-6 text-center">
@@ -19,35 +39,9 @@ const MyBookings = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Example Row */}
-            <tr className="hover:bg-amber-500 hover:text-black transition-all">
-              <td className="p-4 border border-amber-400">
-                <img
-                  src="https://via.placeholder.com/100"
-                  alt="Car Thumbnail"
-                  className="w-20 h-20 object-cover mx-auto"
-                />
-              </td>
-              <td className="p-4 border border-amber-400">
-                Toyota Corolla 2023
-              </td>
-              <td className="p-4 border border-amber-400">25-12-2024 14:00</td>
-              <td className="p-4 border border-amber-400">$350</td>
-              <td className="p-4 border border-amber-400">
-                <span className="bg-green-500 text-black px-2 py-1 rounded-full">
-                  Confirmed
-                </span>
-              </td>
-              <td className="p-4 border border-amber-400 flex justify-center gap-4">
-                <button className="bg-blue-500 text-black px-3 py-2 rounded hover:bg-blue-400 transition-all">
-                  Modify Date
-                </button>
-                <button className="bg-red-500 text-black px-3 py-2 rounded flex items-center gap-2 hover:bg-red-400 transition-all">
-                  <FaTrashAlt /> Cancel
-                </button>
-              </td>
-            </tr>
-            {/* Add more rows as needed */}
+            {bookings.map((booking, idx) => (
+              <BookingTable key={idx} booking={booking}></BookingTable>
+            ))}
           </tbody>
         </table>
       </div>
