@@ -98,6 +98,7 @@ const MyCars = () => {
                 <th className="p-3 border">Car Image</th>
                 <th className="p-3 border">Car Model</th>
                 <th className="p-3 border">Daily Rental Price</th>
+                <th className="p-3 border">Bookings</th>
                 <th className="p-3 border">Availability</th>
                 <th className="p-3 border">Date Added</th>
                 <th className="p-3 border">Actions</th>
@@ -118,6 +119,9 @@ const MyCars = () => {
                   </td>
                   <td className="p-3 border text-center text-[#4a4a48]">
                     ${car.price}/day
+                  </td>
+                  <td className="p-3 border text-center text-[#4a4a48]">
+                    {car.bookingCount}
                   </td>
                   <td
                     className={`p-3 border text-center font-semibold ${
