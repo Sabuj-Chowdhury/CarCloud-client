@@ -4,7 +4,7 @@ A feature-rich platform designed to revolutionize car rentals with seamless book
 
 ## 🌐 Live URL
 
-[Visit the Car Rental System](#) *https://keen-semifreddo-9ced4d.netlify.app/*
+(#) *https://keen-semifreddo-9ced4d.netlify.app/*
 
 ---
 
@@ -41,7 +41,7 @@ The platform offers secure authentication, responsive design, and robust backend
 - **Real-Time Availability:** View and book available cars seamlessly.
 - **Interactive UI:** Includes animated sections for a visually appealing experience.
 
-### Admin & Private Features
+### Features
 
 - **Car Management:** Add, update, or delete cars with essential details.
 - **My Cars:** View, sort, and manage cars added by the user.
@@ -86,11 +86,6 @@ The platform offers secure authentication, responsive design, and robust backend
 ### Steps
 
 1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/car-rental-system.git
-   cd car-rental-system
-   ```
 
 2. Install dependencies:
 
@@ -152,7 +147,7 @@ The platform offers secure authentication, responsive design, and robust backend
 
 ## 📦 Deployment
 
-- Deployed using **Netlify** for the client and **Render** for the backend.
+- Deployed using **Netlify** for the client and **Vercel** for the backend.
 - Secured environment variables and configurations.
 - No errors like CORS, 404, or 504 on production.
 
@@ -161,12 +156,6 @@ The platform offers secure authentication, responsive design, and robust backend
 ## 🙌 Acknowledgments
 
 This project was developed as part of an assignment for assessing technical and problem-solving skills. Special thanks to the reviewers for their guidance.
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
