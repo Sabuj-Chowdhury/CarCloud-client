@@ -1,8 +1,9 @@
 import { formatDistanceToNow } from "date-fns";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const CarCard = ({ car }) => {
-  const { model, price, availability, imageUrl, dateAdded, bookingCount } =
+  const { model, price, availability, imageUrl, dateAdded, bookingCount, _id } =
     car || {};
 
   // Validate the date
@@ -18,7 +19,7 @@ const CarCard = ({ car }) => {
   }
 
   return (
-    <div className="bg-white border border-yellow-200 rounded-xl shadow-lg overflow-hidden transition duration-300 transform hover:scale-105 hover:shadow-2xl relative flex flex-col">
+    <div className="bg-white border border-emerald-400 rounded-xl shadow-lg overflow-hidden transition duration-300 transform hover:scale-105 hover:shadow-2xl relative flex flex-col">
       {/* Car Image */}
       <img
         className="w-full h-48 object-cover"
@@ -42,26 +43,27 @@ const CarCard = ({ car }) => {
             >
               {availability}
             </span>
-            <span className="text-sm text-gray-500">Added {formattedDate}</span>
+            <span className="text-sm text-gray-400">Added {formattedDate}</span>
           </div>
         </div>
 
         {/* Price and Booking Count */}
         <div className="mb-4">
-          <p className="text-orange-500 text-lg font-semibold">${price}/day</p>
-          <p className="text-sm text-gray-600">Bookings: {bookingCount}</p>
+          <p className="text-emerald-400 text-lg font-semibold">${price}/day</p>
+          <p className="text-sm text-gray-400">Bookings: {bookingCount}</p>
         </div>
 
         {/* Book Now Button */}
-        <button
+        <Link
+          to={`/car-details/${_id}`}
           className={`mt-auto px-4 py-2 text-sm font-bold rounded-lg shadow-md transition ${
             availability === "Not Available"
               ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-orange-500 text-white hover:bg-orange-600"
+              : "bg-emerald-400 text-white hover:bg-emerald-500"
           }`}
         >
           Book Now
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -32,9 +32,9 @@ const Banner = () => {
       </video>
       {/* Overlay Content */}
       <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/70">
-        {/* Semi-transparent overlay with */}
+        {/* Semi-transparent overlay */}
         <motion.h1
-          className="text-4xl md:text-6xl font-bold text-white mb-4"
+          className="text-4xl md:text-6xl font-bold text-emerald-400 mb-4"
           variants={textVariants}
           initial="hidden"
           animate="visible"
@@ -53,7 +53,7 @@ const Banner = () => {
         </motion.p>
         <Link
           to="/available-cars"
-          className="bg-teal-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-teal-700 transition duration-300"
+          className="bg-emerald-500 text-black font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition duration-300"
         >
           View Available Cars
         </Link>
