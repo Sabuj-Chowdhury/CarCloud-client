@@ -1,7 +1,24 @@
 import { FaTrashAlt } from "react-icons/fa";
 
 const BookingTable = ({ booking }) => {
-  const { model, imageUrl, bookedAt, price, bookingStatus } = booking || {};
+  const {
+    model,
+    imageUrl,
+    bookedAt,
+    price,
+    bookingStatus,
+    startDate,
+    endDate,
+  } = booking || {};
+
+  // Calculate the booking duration in days
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const durationInDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+
+  // Calculate the total price (daily price * duration)
+  const dailyPrice = parseFloat(price);
+  const total = (dailyPrice * durationInDays).toFixed(2);
 
   // Format the date and time
   const formattedDate = new Date(bookedAt).toLocaleDateString();
@@ -13,17 +30,13 @@ const BookingTable = ({ booking }) => {
   return (
     <tr className="hover:bg-amber-500 hover:text-black transition-all">
       <td className="p-4 border border-amber-400">
-        <img
-          src={imageUrl}
-          alt={`${model} Thumbnail`}
-          className="w-20 h-20 object-cover mx-auto"
-        />
+        <img src={imageUrl} alt="" className="w-20 h-20 object-cover mx-auto" />
       </td>
       <td className="p-4 border border-amber-400">{model}</td>
       <td className="p-4 border border-amber-400">
         {formattedDate} {formattedTime}
       </td>
-      <td className="p-4 border border-amber-400">${price}</td>
+      <td className="p-4 border border-amber-400">${total}</td>
       <td className="p-4 border border-amber-400">
         <span
           className={`px-2 py-1 rounded-full ${

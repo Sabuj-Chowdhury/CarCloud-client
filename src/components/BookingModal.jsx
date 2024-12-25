@@ -31,7 +31,7 @@ const BookingModal = ({ id }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (endDate < startDate) {
+    if (endDate <= startDate) {
       setDateError("End date must be after the start date.");
       return;
     }

@@ -92,9 +92,11 @@ const AvailableCars = () => {
               : "grid-cols-1"
           }`}
         >
-          {cars.map((car, idx) => (
-            <CarCard key={idx} car={car} layout={layout}></CarCard>
-          ))}
+          {cars
+            .filter((car) => car.availability === "Available")
+            .map((car, idx) => (
+              <CarCard key={idx} car={car} layout={layout}></CarCard>
+            ))}
         </div>
       </div>
     </div>
