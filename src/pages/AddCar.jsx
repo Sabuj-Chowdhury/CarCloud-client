@@ -29,7 +29,7 @@ const AddCar = () => {
       name: user?.displayName || {},
     };
     newCar.dateAdded = new Date().toISOString();
-    newCar.bookingStatus = "open"; // Default status
+    newCar.bookingStatus = "pending"; // Default status
     newCar.bookingCount = 0; // Default count
 
     try {

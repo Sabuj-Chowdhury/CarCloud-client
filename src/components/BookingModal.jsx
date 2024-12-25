@@ -49,6 +49,7 @@ const BookingModal = ({ id }) => {
     newCar.bookedAt = new Date();
     newCar.startDate = startDate;
     newCar.endDate = endDate;
+    newCar.bookingStatus = car.bookingStatus;
 
     // console.log(newCar);
 
@@ -181,7 +182,7 @@ const BookingModal = ({ id }) => {
                 type="submit"
                 className="btn bg-yellow-400 text-black hover:bg-yellow-500"
               >
-                Save Changes
+                Confirm
               </button>
               <button
                 type="button"
