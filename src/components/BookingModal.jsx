@@ -58,7 +58,7 @@ const BookingModal = ({ id }) => {
         `${import.meta.env.VITE_URL}/add-booking`,
         newCar
       );
-      console.log(data);
+      //   console.log(data);
 
       toast.success("Booked Successfully!");
       navigate("/my-bookings");
