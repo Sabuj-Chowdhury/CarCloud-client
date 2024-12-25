@@ -6,17 +6,18 @@ import { FaTh, FaList } from "react-icons/fa";
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
   const [sort, setSort] = useState("");
+  const [search, setSearch] = useState("");
   const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
     const fetchAllCars = async () => {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_URL}/all-cars?sort=${sort}`
+        `${import.meta.env.VITE_URL}/all-cars?sort=${sort}&search=${search}`
       );
       setCars(data);
     };
     fetchAllCars();
-  }, [sort]);
+  }, [sort, search]);
 
   // console.log(cars);
 
@@ -42,6 +43,19 @@ const AvailableCars = () => {
               <option value="asc">Price (Lowest First)</option>
               <option value="dsc">Price (Highest First)</option>
             </select>
+          </div>
+          {/* Search input and button */}
+          <div className="flex items-center space-x-2">
+            <input
+              type="text"
+              name="search"
+              placeholder="Search cars(brand,model)..."
+              onBlur={(e) => setSearch(e.target.value)}
+              className="border p-2 rounded-md"
+            />
+            <button className="bg-yellow-500 text-black p-2 rounded-md hover:bg-yellow-600">
+              Search
+            </button>
           </div>
           <div className=" flex items-center space-x-2">
             {/* Grid button */}
