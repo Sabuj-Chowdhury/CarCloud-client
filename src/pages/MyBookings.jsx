@@ -4,6 +4,7 @@ import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -19,6 +20,52 @@ const MyBookings = () => {
         toast.error(err.message);
       });
   }, [user]);
+
+  // cancel booking
+  const handleCancel = async (id, prev, bookingStatus) => {
+    // console.log(id, prev, bookingStatus);
+    if (prev === bookingStatus) return toast.error("can't change");
+
+    try {
+      const { data } = await axios.patch(
+        `${import.meta.env.VITE_URL}/booking-status/${id}`,
+        { bookingStatus }
+      );
+      // console.log(data);
+      // refresh UI
+      axios
+        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+        .then((res) => {
+          setBookings(res.data);
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // Confirmation delete
+  const handleCustomCancel = (id, prev, current) => {
+    Swal.fire({
+      title: "Are you sure you want to cancel this booking?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleCancel(id, prev, current);
+        Swal.fire({
+          title: "Canceled!",
+          text: "Your Booking has been Canceled.",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <div className="bg-black text-amber-400 min-h-screen p-4">
@@ -40,7 +87,11 @@ const MyBookings = () => {
             </thead>
             <tbody>
               {bookings.map((booking, idx) => (
-                <BookingTable key={idx} booking={booking}></BookingTable>
+                <BookingTable
+                  key={idx}
+                  booking={booking}
+                  handleCustomCancel={handleCustomCancel}
+                ></BookingTable>
               ))}
             </tbody>
           </table>
