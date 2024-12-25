@@ -1,68 +1,77 @@
 import { useEffect, useState } from "react";
 import CarCard from "../components/CarCard";
 import axios from "axios";
+import { FaTh, FaList } from "react-icons/fa";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
+  const [sort, setSort] = useState("");
+  const [layout, setLayout] = useState("grid");
 
   useEffect(() => {
+    const fetchAllCars = async () => {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URL}/all-cars?sort=${sort}`
+      );
+      setCars(data);
+    };
     fetchAllCars();
-  }, []);
+  }, [sort]);
 
-  const fetchAllCars = async () => {
-    const { data } = await axios.get(`${import.meta.env.VITE_URL}/all-cars`);
-    setCars(data);
-  };
-  console.log(cars);
+  // console.log(cars);
 
   return (
     <div className="container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between">
       <div>
-        <div className="flex flex-col md:flex-row justify-center items-center gap-5 ">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-5 mb-5">
           <div>
+            {/* Sorting options */}
             <select
-              name="category"
-              id="category"
-              className="border p-4 rounded-lg"
-            >
-              <option value="">Filter By Category</option>
-              <option value="Web Development">Web Development</option>
-              <option value="Graphics Design">Graphics Design</option>
-              <option value="Digital Marketing">Digital Marketing</option>
-            </select>
-          </div>
-
-          <form>
-            <div className="flex p-1 overflow-hidden border rounded-lg    focus-within:ring focus-within:ring-opacity-40 focus-within:border-blue-400 focus-within:ring-blue-300">
-              <input
-                className="px-6 py-2 text-gray-700 placeholder-gray-500 bg-white outline-none focus:placeholder-transparent"
-                type="text"
-                name="search"
-                placeholder="Enter Job Title"
-                aria-label="Enter Job Title"
-              />
-
-              <button className="px-1 md:px-4 py-3 text-sm font-medium tracking-wider text-gray-100 uppercase transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:bg-gray-600 focus:outline-none">
-                Search
-              </button>
-            </div>
-          </form>
-          <div>
-            <select
-              name="category"
-              id="category"
+              name="sorting"
+              id="sorting"
+              onChange={(e) => setSort(e.target.value)}
               className="border p-4 rounded-md"
             >
-              <option value="">Sort By Deadline</option>
-              <option value="dsc">Descending Order</option>
-              <option value="asc">Ascending Order</option>
+              <option value="dsc">Sort By Date Added (Newest First)</option>
+              <option value="asc">Sort By Price (Lowest First)</option>
             </select>
           </div>
-          <button className="btn">Reset</button>
+          <div className=" flex items-center space-x-2">
+            {/* Grid button */}
+            <button
+              onClick={() => setLayout("grid")}
+              className={`p-2 rounded-md ${
+                layout === "grid"
+                  ? "bg-red-400 text-white shadow-lg"
+                  : "bg-gray-200 text-black hover:bg-red-300"
+              } transition duration-300`}
+              aria-label="Grid View"
+            >
+              <FaTh size={20} />
+            </button>
+            {/* List button */}
+            <button
+              onClick={() => setLayout("list")}
+              className={`p-2 rounded-md ${
+                layout === "list"
+                  ? "bg-green-400 text-white shadow-lg"
+                  : "bg-gray-200 text-black hover:bg-green-300"
+              } transition duration-300`}
+              aria-label="List View"
+            >
+              <FaList size={20} />
+            </button>
+          </div>
         </div>
-        <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div
+          className={`grid gap-8 mt-8 ${
+            layout === "grid"
+              ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              : "grid-cols-1"
+          }`}
+        >
           {cars.map((car, idx) => (
-            <CarCard key={idx} car={car}></CarCard>
+            <CarCard key={idx} car={car} layout={layout}></CarCard>
           ))}
         </div>
       </div>
