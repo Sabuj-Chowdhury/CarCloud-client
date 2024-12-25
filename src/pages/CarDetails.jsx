@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import BookingModal from "../components/BookingModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CarDetails = () => {
   const { id } = useParams();
@@ -30,7 +31,7 @@ const CarDetails = () => {
   };
 
   if (!car) {
-    return <div className="text-center text-white">Loading...</div>;
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   return (
@@ -75,9 +76,15 @@ const CarDetails = () => {
               <p>Added by: {car.owner.name}</p>
               <p>Contact: {car.owner.email}</p>
             </div>
+            {/* book now button */}
             <button
-              className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-semibold rounded-lg transition"
+              className={`px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-semibold rounded-lg transition ${
+                car.availability === "Unavailable"
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
               onClick={() => handleUpdateClick(car._id)}
+              disabled={car.availability === "Unavailable"} // Disable button if unavailable
             >
               Book Now
             </button>

@@ -56,7 +56,7 @@ const CarCard = ({ car }) => {
         {/* Book Now Button */}
         <Link
           to={`/car-details/${_id}`}
-          className={`mt-auto px-4 py-2 text-sm font-bold rounded-lg shadow-md transition ${
+          className={`mt-auto px-4 py-2 text-sm text-center font-bold rounded-lg shadow-md transition ${
             availability === "Not Available"
               ? "bg-gray-500 text-gray-300 cursor-not-allowed"
               : "bg-yellow-400 text-black hover:bg-yellow-500"

@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.jpeg";
 import { useState, useContext } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
@@ -21,7 +21,9 @@ const Navbar = () => {
       <div className="flex justify-between items-center px-5 py-4 max-w-7xl mx-auto">
         {/* Logo */}
         <div className="flex items-center">
-          <img src={logo} className="h-10 mr-2 rounded-full" alt="logo" />
+          <Link to="/">
+            <img src={logo} className="h-10 mr-2 rounded-full" alt="logo" />
+          </Link>
           <span className="font-bold text-xl">CarCloud</span>
         </div>
 
