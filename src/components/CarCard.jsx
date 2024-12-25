@@ -19,7 +19,7 @@ const CarCard = ({ car }) => {
   }
 
   return (
-    <div className="bg-white border border-emerald-400 rounded-xl shadow-lg overflow-hidden transition duration-300 transform hover:scale-105 hover:shadow-2xl relative flex flex-col">
+    <div className="bg-black border-none  rounded-xl shadow-lg overflow-hidden transition duration-300 transform hover:scale-105 hover:shadow-2xl relative flex flex-col">
       {/* Car Image */}
       <img
         className="w-full h-48 object-cover"
@@ -32,24 +32,24 @@ const CarCard = ({ car }) => {
       <div className="p-4 flex flex-col justify-between flex-grow">
         {/* Model and Availability */}
         <div className="mb-2">
-          <h3 className="text-lg font-bold text-gray-800">{model}</h3>
+          <h3 className="text-xl font-semibold text-yellow-400">{model}</h3>
           <div className="flex justify-between items-center mt-1">
             <span
-              className={`px-3 py-1 text-xs font-semibold rounded-full ${
+              className={`px-3 py-1 text-xs font-bold rounded-full ${
                 availability === "Not Available"
-                  ? "bg-red-200 text-red-800"
-                  : "bg-green-200 text-green-800"
+                  ? "bg-red-600 text-white"
+                  : "bg-green-600 text-white"
               }`}
             >
               {availability}
             </span>
-            <span className="text-sm text-gray-400">Added {formattedDate}</span>
+            <span className="text-sm text-gray-300">Added {formattedDate}</span>
           </div>
         </div>
 
         {/* Price and Booking Count */}
         <div className="mb-4">
-          <p className="text-emerald-400 text-lg font-semibold">${price}/day</p>
+          <p className="text-yellow-400 text-lg font-bold">${price}/day</p>
           <p className="text-sm text-gray-400">Bookings: {bookingCount}</p>
         </div>
 
@@ -58,8 +58,8 @@ const CarCard = ({ car }) => {
           to={`/car-details/${_id}`}
           className={`mt-auto px-4 py-2 text-sm font-bold rounded-lg shadow-md transition ${
             availability === "Not Available"
-              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-              : "bg-emerald-400 text-white hover:bg-emerald-500"
+              ? "bg-gray-500 text-gray-300 cursor-not-allowed"
+              : "bg-yellow-400 text-black hover:bg-yellow-500"
           }`}
         >
           Book Now
