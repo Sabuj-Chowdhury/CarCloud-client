@@ -1,6 +1,6 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaTrashAlt } from "react-icons/fa";
 
-const BookingTable = ({ booking, handleCustomCancel }) => {
+const BookingTable = ({ booking, openModal, handleCustomCancel }) => {
   const {
     model,
     imageUrl,
@@ -60,9 +60,15 @@ const BookingTable = ({ booking, handleCustomCancel }) => {
         </span>
       </td>
       <td className="p-4 border border-amber-400 flex justify-center gap-4">
-        <button className="bg-blue-500 text-black px-3 py-2 rounded hover:bg-blue-400 transition-all">
-          Modify Date
+        {/* modify date */}
+        <button
+          onClick={() => openModal(booking)} // Call openModal here
+          className="bg-blue-500 text-black px-3 py-2 rounded flex items-center gap-2 hover:bg-blue-400 transition-all"
+        >
+          <FaCalendarAlt /> Modify Date
         </button>
+
+        {/* cancel booking */}
         <button
           onClick={() => handleCustomCancel(_id, bookingStatus, "canceled")}
           disabled={bookingStatus === "canceled"}

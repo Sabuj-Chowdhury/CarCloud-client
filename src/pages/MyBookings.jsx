@@ -5,9 +5,11 @@ import AuthContext from "../context/AuthContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import DateModal from "../components/DateModal";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
+  const [selectedBooking, setSelectedBooking] = useState(null);
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
@@ -44,6 +46,41 @@ const MyBookings = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  // update booking duration
+  const handleDateChange = async (id, startDate, endDate) => {
+    // console.log(id, startDate, endDate);
+
+    try {
+      const { data } = await axios.patch(
+        `${import.meta.env.VITE_URL}/booking-dates/${id}`,
+        {
+          startDate,
+          endDate,
+        }
+      );
+      toast.success("Booking dates updated successfully!");
+
+      // Refresh bookings after the update
+      axios
+        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+        .then((res) => {
+          setBookings(res.data);
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    } catch (error) {
+      toast.error("Failed to update booking dates.");
+      console.error(error);
+    }
+  };
+
+  // open modal
+  const openModal = (booking) => {
+    setSelectedBooking(booking);
+    document.getElementById("modify_date_modal").showModal();
   };
 
   // Confirmation delete
@@ -90,6 +127,7 @@ const MyBookings = () => {
                 <BookingTable
                   key={idx}
                   booking={booking}
+                  openModal={openModal}
                   handleCustomCancel={handleCustomCancel}
                 ></BookingTable>
               ))}
@@ -113,6 +151,12 @@ const MyBookings = () => {
           </Link>
         </div>
       )}
+
+      {/* modal for change date  */}
+      <DateModal
+        selectedBooking={selectedBooking}
+        handleDateChange={handleDateChange}
+      ></DateModal>
     </div>
   );
 };
