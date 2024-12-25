@@ -49,14 +49,15 @@ const AvailableCars = () => {
             <input
               type="text"
               name="search"
-              placeholder="Search cars(brand,model)..."
+              placeholder="Search cars (brand, model)..."
               onBlur={(e) => setSearch(e.target.value)}
-              className="border p-2 rounded-md"
+              className="border p-2 rounded-md w-64"
             />
             <button className="bg-yellow-500 text-black p-2 rounded-md hover:bg-yellow-600">
               Search
             </button>
           </div>
+
           <div className=" flex items-center space-x-2">
             {/* Grid button */}
             <button

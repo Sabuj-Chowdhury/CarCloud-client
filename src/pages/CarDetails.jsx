@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
+import BookingModal from "../components/BookingModal";
 
 const CarDetails = () => {
   const { id } = useParams();
   const [car, setCar] = useState(null);
+  const [selectedCarId, setSelectedCarId] = useState(null);
 
   useEffect(() => {
     const fetchCarDetails = async () => {
@@ -14,11 +17,17 @@ const CarDetails = () => {
         );
         setCar(data);
       } catch (error) {
-        console.error("Error fetching car details:", error);
+        toast.error("Error fetching car details:", error);
       }
     };
     fetchCarDetails();
   }, [id]);
+
+  // get the id of the car
+  const handleUpdateClick = (id) => {
+    setSelectedCarId(id);
+    document.getElementById("booking_modal").showModal();
+  };
 
   if (!car) {
     return <div className="text-center text-white">Loading...</div>;
@@ -51,13 +60,15 @@ const CarDetails = () => {
             <h2 className="text-2xl font-semibold text-amber-400 mb-4">
               Features:
             </h2>
-            <ul className="list-disc list-inside text-gray-300">
-              {car.features.map((feature, index) => (
-                <li key={index} className="mb-1">
-                  {feature}
-                </li>
-              ))}
-            </ul>
+            {car && (
+              <ul className="list-disc list-inside text-gray-300">
+                {car.features.map((feature, index) => (
+                  <li key={index} className="mb-1">
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="flex justify-between items-center">
             <div className="text-sm text-gray-400">
@@ -66,13 +77,16 @@ const CarDetails = () => {
             </div>
             <button
               className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-black font-semibold rounded-lg transition"
-              onClick={() => alert("Booking functionality coming soon!")}
+              onClick={() => handleUpdateClick(car._id)}
             >
               Book Now
             </button>
           </div>
         </div>
       </div>
+
+      {/* Booking modal */}
+      <BookingModal id={selectedCarId}></BookingModal>
     </div>
   );
 };

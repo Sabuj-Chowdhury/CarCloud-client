@@ -167,12 +167,14 @@ const MyCars = () => {
                     {format(new Date(car.dateAdded), "dd/MM/yyyy")}
                   </td>
                   <td className="p-3 border text-center">
+                    {/* update */}
                     <button
                       onClick={() => handleUpdateClick(car._id)}
                       className="mx-2 p-2 bg-[#6d4d7c] text-white rounded hover:bg-[#5a3b66]"
                     >
                       <FaEdit />
                     </button>
+                    {/* delete */}
                     <button
                       onClick={() => handleCustomDelete(car._id)}
                       className="mx-2 p-2 bg-[#d9534f] text-white rounded hover:bg-[#c9302c]"
