@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const SpecialOffers = () => {
   const offers = [
@@ -46,9 +47,11 @@ const SpecialOffers = () => {
                   {offer.title}
                 </h3>
                 <p className="text-gray-400 mb-5">{offer.description}</p>
-                <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
-                  {offer.buttonText}
-                </button>
+                <Link to="/available-cars">
+                  <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
+                    {offer.buttonText}
+                  </button>
+                </Link>
               </div>
             </motion.div>
           ))}

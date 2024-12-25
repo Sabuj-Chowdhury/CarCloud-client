@@ -19,8 +19,8 @@ const LatestCars = () => {
 
   return (
     <div className="container mx-auto py-12 px-4">
-      <h2 className="text-3xl text-emerald-400 font-bold text-center mb-8">
-        Available Cars
+      <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-emerald-400">
+        Recent Listings
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {cars.map((car, index) => (
