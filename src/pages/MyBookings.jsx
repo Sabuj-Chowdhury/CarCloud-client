@@ -17,6 +17,7 @@ import {
   Legend,
 } from "chart.js";
 import LoadingSpinner from "../components/LoadingSpinner";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 // Register Chart.js components
 ChartJS.register(
@@ -34,19 +35,33 @@ const MyBookings = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
 
+  const axiosSecure = useAxiosSecure();
+
+  // console.log(user.email);
+
   useEffect(() => {
-    axios
-      .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
-        withCredentials: true,
-      })
+    // axios
+    //   .get(`${import.meta.env.VITE_URL}/bookings/${user?.email}`, {
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     setBookings(res.data);
+    //     setLoading(false);
+    //   })
+    //   .catch((err) => {
+    //     toast.error(err.message);
+    //   });
+
+    axiosSecure
+      .get(`/bookings/${user?.email}`)
       .then((res) => {
         setBookings(res.data);
         setLoading(false);
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log(err.message);
       });
-  }, [user]);
+  }, [axiosSecure, user?.email]);
 
   // cancel booking
   const handleCancel = async (id, prev, bookingStatus) => {
@@ -55,17 +70,26 @@ const MyBookings = () => {
         bookingStatus,
       });
       // refresh UI
-      axios
-        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
-          withCredentials: true,
-        })
+      axiosSecure
+        .get(`/bookings/${user?.email}`)
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
         })
         .catch((err) => {
-          toast.error(err.message);
+          console.log(err.message);
         });
+      // axios
+      //   .get(`${import.meta.env.VITE_URL}/bookings/${user?.email}`, {
+      //     withCredentials: true,
+      //   })
+      //   .then((res) => {
+      //     setBookings(res.data);
+      //     setLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     toast.error(err.message);
+      //   });
     } catch (err) {
       console.log(err);
     }
@@ -80,17 +104,26 @@ const MyBookings = () => {
       });
       toast.success("Booking dates updated successfully!");
       // refresh UI
-      axios
-        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
-          withCredentials: true,
-        })
+      axiosSecure
+        .get(`/bookings/${user?.email}`)
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
         })
         .catch((err) => {
-          toast.error(err.message);
+          console.log(err.message);
         });
+      // axios
+      //   .get(`${import.meta.env.VITE_URL}/bookings/${user?.email}`, {
+      //     withCredentials: true,
+      //   })
+      //   .then((res) => {
+      //     setBookings(res.data);
+      //     setLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     toast.error(err.message);
+      //   });
     } catch (error) {
       toast.error("Failed to update booking dates.");
       console.error(error);

@@ -81,7 +81,7 @@ const AddCar = () => {
             className="w-full mt-2 p-2 border border-gray-600 rounded bg-gray-700"
           >
             <option value="Available">Available</option>
-            <option value="Not Available">Unavailable</option>
+            <option value="Unavailable">Unavailable</option>
           </select>
         </div>
         <div className="mb-4">

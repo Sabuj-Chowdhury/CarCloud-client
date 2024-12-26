@@ -36,7 +36,7 @@ const CarCard = ({ car }) => {
           <div className="flex justify-between items-center mt-1">
             <span
               className={`px-3 py-1 text-xs font-bold rounded-full ${
-                availability === "Not Available"
+                availability === "Unavailable"
                   ? "bg-red-600 text-white"
                   : "bg-green-600 text-white"
               }`}
@@ -56,8 +56,9 @@ const CarCard = ({ car }) => {
         {/* Book Now Button */}
         <Link
           to={`/car-details/${_id}`}
+          disabled={availability === "Unavailable"} // Disable button if unavailable
           className={`mt-auto px-4 py-2 text-sm text-center font-bold rounded-lg shadow-md transition ${
-            availability === "Not Available"
+            availability === "Unavailable"
               ? "bg-gray-500 text-gray-300 cursor-not-allowed"
               : "bg-yellow-400 text-black hover:bg-yellow-500"
           }`}
