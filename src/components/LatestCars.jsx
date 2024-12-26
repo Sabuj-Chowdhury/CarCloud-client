@@ -2,21 +2,28 @@ import { useEffect, useState } from "react";
 import CarCard from "./CarCard";
 import axios from "axios";
 import toast from "react-hot-toast";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LatestCars = () => {
   const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_URL}/latest-cars`)
       .then((res) => {
         setCars(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         toast.error(err.message);
       });
   });
-  console.log(cars);
+
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
+  // console.log(cars);
 
   return (
     <div className="container mx-auto py-12 px-4">

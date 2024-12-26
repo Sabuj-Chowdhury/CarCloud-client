@@ -16,6 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 // Register Chart.js components
 ChartJS.register(
@@ -31,12 +32,14 @@ const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
       .then((res) => {
         setBookings(res.data);
+        setLoading(false);
       })
       .catch((err) => {
         toast.error(err.message);
@@ -54,6 +57,7 @@ const MyBookings = () => {
         .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
         .then((res) => {
           setBookings(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           toast.error(err.message);
@@ -76,6 +80,7 @@ const MyBookings = () => {
         .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
         .then((res) => {
           setBookings(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           toast.error(err.message);
@@ -170,6 +175,9 @@ const MyBookings = () => {
       },
     },
   };
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="bg-black text-amber-400 min-h-screen p-4">

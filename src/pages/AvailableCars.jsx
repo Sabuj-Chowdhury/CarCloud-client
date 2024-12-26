@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import CarCard from "../components/CarCard";
 import axios from "axios";
 import { FaTh, FaList } from "react-icons/fa";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const AvailableCars = () => {
   const [cars, setCars] = useState([]);
   const [sort, setSort] = useState("");
   const [search, setSearch] = useState("");
   const [layout, setLayout] = useState("grid");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchAllCars = async () => {
@@ -15,11 +17,15 @@ const AvailableCars = () => {
         `${import.meta.env.VITE_URL}/all-cars?sort=${sort}&search=${search}`
       );
       setCars(data);
+      setLoading(false);
     };
     fetchAllCars();
   }, [sort, search]);
 
   // console.log(cars);
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
+  }
 
   return (
     <div className="container px-6 py-10 mx-auto min-h-[calc(100vh-306px)] flex flex-col justify-between">

@@ -13,6 +13,7 @@ const MyCars = () => {
   const { user } = useContext(AuthContext);
   const [cars, setCars] = useState([]);
   const [selectedCarId, setSelectedCarId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   // Fetch data function
   const fetchCars = useCallback(() => {
@@ -21,6 +22,7 @@ const MyCars = () => {
         .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
         .then((res) => {
           setCars(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           toast.error(err.message);
@@ -71,9 +73,8 @@ const MyCars = () => {
     document.getElementById("update_modal").showModal();
   };
 
-  // if no user or null
-  if (!user) {
-    return <LoadingSpinner />;
+  if (loading) {
+    return <LoadingSpinner></LoadingSpinner>;
   }
 
   // sorting function
