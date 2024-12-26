@@ -59,7 +59,7 @@ const MyBookings = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
       });
   }, [axiosSecure, user?.email]);
 

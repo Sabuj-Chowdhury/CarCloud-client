@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import Modal from "../components/Modal";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const MyCars = () => {
   const { user } = useContext(AuthContext);
@@ -15,20 +16,32 @@ const MyCars = () => {
   const [selectedCarId, setSelectedCarId] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const axiosSecure = useAxiosSecure();
+
   // Fetch data function
   const fetchCars = useCallback(() => {
     if (user?.email) {
-      axios
-        .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
+      // axios
+      //   .get(`${import.meta.env.VITE_URL}/my-cars/${user.email}`)
+      //   .then((res) => {
+      //     setCars(res.data);
+      //     setLoading(false);
+      //   })
+      //   .catch((err) => {
+      //     toast.error(err.message);
+      //   });
+
+      axiosSecure
+        .get(`/my-cars/${user.email}`)
         .then((res) => {
           setCars(res.data);
           setLoading(false);
         })
         .catch((err) => {
-          toast.error(err.message);
+          console.log(err);
         });
     }
-  }, [user?.email]);
+  }, [axiosSecure, user.email]);
 
   useEffect(() => {
     if (user?.email) {
