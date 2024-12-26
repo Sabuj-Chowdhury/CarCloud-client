@@ -8,7 +8,7 @@ const LatestCars = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_URL}/all-cars?limit=6`)
+      .get(`${import.meta.env.VITE_URL}/latest-cars`)
       .then((res) => {
         setCars(res.data);
       })
@@ -16,6 +16,7 @@ const LatestCars = () => {
         toast.error(err.message);
       });
   });
+  console.log(cars);
 
   return (
     <div className="container mx-auto py-12 px-4">

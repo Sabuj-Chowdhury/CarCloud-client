@@ -31,6 +31,7 @@ const AddCar = () => {
     newCar.dateAdded = new Date().toISOString();
     newCar.bookingStatus = "confirmed"; // Default status
     newCar.bookingCount = 0; // Default count
+    newCar.createdAt = new Date(); //date for the time of add
 
     try {
       // Post request to add car
