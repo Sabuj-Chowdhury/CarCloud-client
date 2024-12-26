@@ -63,7 +63,14 @@ const BookingTable = ({ booking, openModal, handleCustomCancel }) => {
         {/* modify date */}
         <button
           onClick={() => openModal(booking)} // Call openModal here
-          className="bg-blue-500 text-black px-3 py-2 rounded flex items-center gap-2 hover:bg-blue-400 transition-all"
+          disabled={bookingStatus === "canceled"}
+          className={` px-3 py-2 rounded flex items-center gap-2  transition-all
+            ${
+              bookingStatus === "canceled"
+                ? "bg-blue-400 text-gray-700 cursor-not-allowed"
+                : "bg-blue-500 text-black hover:bg-blue-400"
+            }
+            `}
         >
           <FaCalendarAlt /> Modify Date
         </button>
