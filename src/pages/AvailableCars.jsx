@@ -22,6 +22,8 @@ const AvailableCars = () => {
     fetchAllCars();
   }, [sort, search]);
 
+  console.log(sort);
+
   // console.log(cars);
   if (loading) {
     return <LoadingSpinner></LoadingSpinner>;

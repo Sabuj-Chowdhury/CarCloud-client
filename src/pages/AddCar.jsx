@@ -19,7 +19,7 @@ const AddCar = () => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
-    const { ...newCar } = initialData;
+    const { price, ...newCar } = initialData;
 
     newCar.features = newCar.features
       .split(",")
@@ -28,6 +28,7 @@ const AddCar = () => {
       email: user?.email,
       name: user?.displayName || {},
     };
+    newCar.price = parseInt(price);
     newCar.dateAdded = new Date().toISOString();
     newCar.bookingStatus = "confirmed"; // Default status
     newCar.bookingCount = 0; // Default count
@@ -80,7 +81,7 @@ const AddCar = () => {
             className="w-full mt-2 p-2 border border-gray-600 rounded bg-gray-700"
           >
             <option value="Available">Available</option>
-            <option value="Not Available">Not Available</option>
+            <option value="Not Available">Unavailable</option>
           </select>
         </div>
         <div className="mb-4">
