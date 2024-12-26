@@ -107,10 +107,7 @@ const Navbar = () => {
                 </div>
               </div>
               {/* Log Out Button */}
-              <button
-                onClick={onLogout}
-                className="hover:text-red-500 ml-2 underline"
-              >
+              <button onClick={onLogout} className="hover:text-red-500 ml-2 ">
                 Log Out
               </button>
             </div>

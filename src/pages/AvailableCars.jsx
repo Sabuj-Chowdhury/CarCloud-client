@@ -22,7 +22,7 @@ const AvailableCars = () => {
     fetchAllCars();
   }, [sort, search]);
 
-  console.log(sort);
+  // console.log(sort);
 
   // console.log(cars);
   if (loading) {
