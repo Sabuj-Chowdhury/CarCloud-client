@@ -36,7 +36,9 @@ const MyBookings = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+      .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setBookings(res.data);
         setLoading(false);
@@ -54,7 +56,9 @@ const MyBookings = () => {
       });
       // refresh UI
       axios
-        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
@@ -77,7 +81,9 @@ const MyBookings = () => {
       toast.success("Booking dates updated successfully!");
       // refresh UI
       axios
-        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`)
+        .get(`${import.meta.env.VITE_URL}/bookings/${user.email}`, {
+          withCredentials: true,
+        })
         .then((res) => {
           setBookings(res.data);
           setLoading(false);
