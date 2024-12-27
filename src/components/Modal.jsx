@@ -32,7 +32,7 @@ const Modal = ({ carId, refreshCars }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const initialData = Object.fromEntries(formData.entries());
-    const { ...newCar } = initialData;
+    const { price, ...newCar } = initialData;
     newCar.features = newCar.features.split(",");
     newCar.owner = {
       email: user?.email,
@@ -41,6 +41,7 @@ const Modal = ({ carId, refreshCars }) => {
     newCar.dateAdded = new Date();
     newCar.bookingStatus = car.bookingStatus;
     newCar.bookingCount = car.bookingCount;
+    newCar.price = parseInt(price);
 
     try {
       // Post request
