@@ -144,6 +144,52 @@ VITE_URL=YOUR_APPLICATION_URL
 
 ---
 
+## Server Setup Instructions
+
+To set up the server for this project, follow the steps below:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Sabuj-Chowdhury/CarCloud_Server.git
+cd CarCloud_Server
+```
+
+### 2. Install Dependencies
+
+Install the required dependencies by running:
+
+```bash
+npm install
+```
+
+### 3. Set Up Environment Variables
+
+Create a `.env` file in the root of the project and add the following environment variables:
+
+```plaintext
+DB_USER=YOUR_DB_USER
+DB_PASS=YOUR_DB_PASS
+ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+```
+
+Replace `YOUR_DB_USER`, `YOUR_DB_PASS`, and `YOUR_ACCESS_TOKEN` with the appropriate values.
+
+### 4. Run the Server
+
+Start the server by running:
+
+```bash
+npm start
+```
+
+### Notes
+
+- Ensure that the `.env` file is **not committed to version control** by adding it to the `.gitignore` file.
+- For database and authentication details, consult your system administrator or project owner.
+
+---
+
 ## 🗂️ Key Pages & Functionalities
 
 - **Home Page:**
