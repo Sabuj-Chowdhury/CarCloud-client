@@ -102,17 +102,6 @@ The platform offers secure authentication, responsive design, and robust backend
   "sweetalert2": "^11.15.3"
 }
 
-
-### Steps
-
-1. Clone the repository:
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-````
-
 ## Environment Variables
 
 This project requires certain environment variables to be set in a `.env.local` file. Below is an example template for the `.env.local` file:
@@ -130,13 +119,25 @@ VITE_URL=YOUR_APPLICATION_URL
 
 ```
 
-4. Start the development server:
+
+### Steps
+
+1. Clone the repository:
+
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+````
+
+3. Start the development server:
 
    ```bash
    npm run start
    ```
 
-5. Run the backend server:
+4. Run the backend server:
    ```bash
    node index.js
    ```
