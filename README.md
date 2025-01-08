@@ -4,19 +4,7 @@ A feature-rich platform designed to revolutionize car rentals with seamless book
 
 ## 🌐 Live URL
 
-(#) https://carcloud-7bc2a.web.app/*
-
----
-
-## 📜 Table of Contents
-
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Setup and Installation](#setup-and-installation)
-- [Key Pages & Functionalities](#key-pages--functionalities)
-- [Updates](#updates)
-- [Deployment](#deployment)
+🔗 [Live Website URL](https://carcloud-7bc2a.web.app/)
 
 ---
 
@@ -32,9 +20,10 @@ The platform offers secure authentication, responsive design, and robust backend
 
 ---
 
-## ✨ Features
 
-### User-Facing
+
+
+## ✨ Features
 
 - **Responsive Design:** Fully optimized for mobile, tablet, and desktop devices.
 - **Search & Filter:** Search cars by model, brand, or location and sort by date or price.
