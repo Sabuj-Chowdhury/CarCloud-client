@@ -20,8 +20,19 @@ The platform offers secure authentication, responsive design, and robust backend
 
 ---
 
+## Screenshots
 
+### Screenshot 1
 
+![Screenshot 1](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.03.54.png)
+
+### Screenshot 2
+
+![Screenshot 2](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.04.16.png)
+
+### Screenshot 3
+
+![Screenshot 3](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.04.38.png)
 
 ## ✨ Features
 
