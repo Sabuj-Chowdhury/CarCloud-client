@@ -83,6 +83,26 @@ The platform offers secure authentication, responsive design, and robust backend
 - MongoDB
 - Firebase Account
 
+## Dependencies
+
+````json
+"dependencies": {
+  "axios": "^1.7.9",
+  "chart.js": "^4.4.7",
+  "date-fns": "^4.1.0",
+  "firebase": "^11.1.0",
+  "framer-motion": "^11.15.0",
+  "react": "^18.3.1",
+  "react-chartjs-2": "^5.2.0",
+  "react-datepicker": "^7.5.0",
+  "react-dom": "^18.3.1",
+  "react-hot-toast": "^2.4.1",
+  "react-icons": "^5.4.0",
+  "react-router-dom": "^7.1.1",
+  "sweetalert2": "^11.15.3"
+}
+
+
 ### Steps
 
 1. Clone the repository:
@@ -91,15 +111,24 @@ The platform offers secure authentication, responsive design, and robust backend
 
    ```bash
    npm install
-   ```
+````
 
-3. Create a `.env` file with:
+## Environment Variables
 
-   ```plaintext
-   REACT_APP_FIREBASE_API_KEY=your_firebase_api_key
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   ```
+This project requires certain environment variables to be set in a `.env.local` file. Below is an example template for the `.env.local` file:
+
+```plaintext
+# Firebase configuration
+VITE_apiKey=YOUR_API_KEY
+VITE_authDomain=YOUR_AUTH_DOMAIN
+VITE_projectId=YOUR_PROJECT_ID
+VITE_storageBucket=YOUR_STORAGE_BUCKET
+VITE_messagingSenderId=YOUR_MESSAGING_SENDER_ID
+VITE_appId=YOUR_APP_ID
+
+VITE_URL=YOUR_APPLICATION_URL
+
+```
 
 4. Start the development server:
 
@@ -109,7 +138,7 @@ The platform offers secure authentication, responsive design, and robust backend
 
 5. Run the backend server:
    ```bash
-   node server.js
+   node index.js
    ```
 
 ---
