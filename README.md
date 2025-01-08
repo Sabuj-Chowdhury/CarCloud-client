@@ -2,15 +2,17 @@
 
 A feature-rich platform designed to revolutionize car rentals with seamless booking, efficient car management, and user-friendly navigation. This project combines cutting-edge frontend and backend technologies to deliver an optimal experience for users and administrators.
 
+---
+
 ## 🌐 Live URL
 
-🔗 [Live Website URL](https://carcloud-7bc2a.web.app/)
+🔗 [Live Website](https://carcloud-7bc2a.web.app/)
 
 ---
 
 ## 🎯 Project Overview
 
-This Car Rental System allows users to:
+This Car Rental System enables users to:
 
 - Add, update, delete, and manage cars listed for rental.
 - Search, sort, and book cars based on availability and preferences.
@@ -20,28 +22,32 @@ The platform offers secure authentication, responsive design, and robust backend
 
 ---
 
-## Screenshots
+## 📸 Screenshots
 
-### Screenshot 1
+### Homepage
 
 ![Screenshot 1](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.03.54.png)
 
-### Screenshot 2
+### Available Cars Page
 
 ![Screenshot 2](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.04.16.png)
 
-### Screenshot 3
+### Listed Cars Page
 
 ![Screenshot 3](./src/assets/scernshots/Screenshot%202025-01-08%20at%2014.04.38.png)
 
+---
+
 ## ✨ Features
+
+### General Features
 
 - **Responsive Design:** Fully optimized for mobile, tablet, and desktop devices.
 - **Search & Filter:** Search cars by model, brand, or location and sort by date or price.
-- **Real-Time Availability:** View and book available cars seamlessly.
+- **Real-Time Availability:** Seamlessly view and book available cars.
 - **Interactive UI:** Includes animated sections for a visually appealing experience.
 
-### Features
+### User Functionalities
 
 - **Car Management:** Add, update, or delete cars with essential details.
 - **My Cars:** View, sort, and manage cars added by the user.
@@ -83,10 +89,10 @@ The platform offers secure authentication, responsive design, and robust backend
 - MongoDB
 - Firebase Account
 
-## Dependencies
+### Dependencies
 
-````json
-"dependencies": {
+```json
+{
   "axios": "^1.7.9",
   "chart.js": "^4.4.7",
   "date-fns": "^4.1.0",
@@ -101,10 +107,11 @@ The platform offers secure authentication, responsive design, and robust backend
   "react-router-dom": "^7.1.1",
   "sweetalert2": "^11.15.3"
 }
+```
 
-## Environment Variables
+### Environment Variables
 
-This project requires certain environment variables to be set in a `.env.local` file. Below is an example template for the `.env.local` file:
+This project requires certain environment variables to be set in a `.env.local` file. Below is an example template:
 
 ```plaintext
 # Firebase configuration
@@ -116,37 +123,38 @@ VITE_messagingSenderId=YOUR_MESSAGING_SENDER_ID
 VITE_appId=YOUR_APP_ID
 
 VITE_URL=YOUR_APPLICATION_URL
-
 ```
-
 
 ### Steps
 
 1. Clone the repository:
 
+   ```bash
+   git clone https://github.com/YourUsername/CarCloud_Client.git
+   cd CarCloud_Client
+   ```
 
 2. Install dependencies:
 
    ```bash
    npm install
-````
+   ```
 
 3. Start the development server:
 
    ```bash
-   npm run start
+   npm run dev
    ```
 
 4. Run the backend server:
+
    ```bash
    node index.js
    ```
 
 ---
 
-## Server Setup Instructions
-
-To set up the server for this project, follow the steps below:
+## 🗂️ Server Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -165,7 +173,7 @@ npm install
 
 ### 3. Set Up Environment Variables
 
-Create a `.env` file in the root of the project and add the following environment variables:
+Create a `.env` file in the root of the project and add the following variables:
 
 ```plaintext
 DB_USER=YOUR_DB_USER
@@ -173,7 +181,7 @@ DB_PASS=YOUR_DB_PASS
 ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
-Replace `YOUR_DB_USER`, `YOUR_DB_PASS`, and `YOUR_ACCESS_TOKEN` with the appropriate values.
+Replace `YOUR_DB_USER`, `YOUR_DB_PASS`, and `YOUR_ACCESS_TOKEN` with appropriate values.
 
 ### 4. Run the Server
 
@@ -183,18 +191,13 @@ Start the server by running:
 npm start
 ```
 
-### Notes
-
-- Ensure that the `.env` file is **not committed to version control** by adding it to the `.gitignore` file.
-- For database and authentication details, consult your system administrator or project owner.
-
 ---
 
 ## 🗂️ Key Pages & Functionalities
 
 - **Home Page:**
 
-  - Banner with a motivational heading and "View Available Cars" button.
+  - Banner with motivational heading and "View Available Cars" button.
   - Highlights like "Why Choose Us?" and "Special Offers."
   - Recent car listings with hover effects.
 
@@ -214,24 +217,17 @@ npm start
 
 ---
 
-## 🛠️ Updates
-
-1. **Sorting**: Briefly defined sorting options on the "Available Cars" page.
-2. **Recharts**: Integrated for visualizing daily rental price statistics on the "My Bookings" page.
-
----
-
 ## 📦 Deployment
 
-- Deployed using **Netlify** for the client and **Vercel** for the backend.
-- Secured environment variables and configurations.
-- No errors like CORS, 404, or 504 on production.
+- **Firebase:** Deployed frontend for production.
+- **Vercel:** Backend deployment for seamless API communication.
+- **Security:** Secured environment variables and configurations.
 
 ---
 
 ## 🙌 Acknowledgments
 
-This project was developed as part of an assignment for assessing technical and problem-solving skills. Special thanks to the reviewers for their guidance.
+This project was developed as part of an assignment to assess technical and problem-solving skills. Special thanks to reviewers for their guidance and feedback.
 
 ---
 
