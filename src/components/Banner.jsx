@@ -6,7 +6,6 @@ const Banner = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Autoplay and loop the video
     if (videoRef.current) {
       videoRef.current.autoplay = true;
       videoRef.current.loop = true;
@@ -16,12 +15,13 @@ const Banner = () => {
   }, []);
 
   const textVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <div className="relative w-full h-[60vh] overflow-hidden">
+    <div className="relative w-full h-[50vh] md:h-[60vh] lg:h-[70vh] overflow-hidden">
+      {/* Video Background */}
       <video
         ref={videoRef}
         className="absolute top-0 left-0 w-full h-full object-cover"
@@ -30,11 +30,11 @@ const Banner = () => {
       >
         Your browser does not support the video tag.
       </video>
+
       {/* Overlay Content */}
-      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/70">
-        {/* Semi-transparent overlay */}
+      <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center bg-black/70 px-4">
         <motion.h1
-          className="text-4xl md:text-6xl font-bold text-emerald-400 mb-4"
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-emerald-400 mb-4 text-center"
           variants={textVariants}
           initial="hidden"
           animate="visible"
@@ -43,17 +43,17 @@ const Banner = () => {
           Experience Luxury
         </motion.h1>
         <motion.p
-          className="text-lg md:text-xl text-gray-300 mb-8 text-center px-4 md:px-0"
+          className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 text-center max-w-xl"
           variants={textVariants}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 1, ease: "easeInOut" }}
+          transition={{ duration: 1, ease: "easeInOut", delay: 0.5 }}
         >
-          Rent the car of your dreams.
+          Rent the car of your dreams and embark on an unforgettable journey.
         </motion.p>
         <Link
           to="/available-cars"
-          className="bg-emerald-500 text-black font-bold py-3 px-6 rounded-lg hover:bg-emerald-600 transition duration-300"
+          className="bg-emerald-500 text-black font-bold py-2 px-4 sm:py-3 sm:px-6 rounded-lg hover:bg-emerald-600 transition duration-300"
         >
           View Available Cars
         </Link>

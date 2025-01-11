@@ -16,7 +16,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="transition-colors duration-300 shadow-md bg-black text-amber-400">
+    <div className=" top-0 sticky z-20 transition-colors duration-300 shadow-md bg-black text-amber-400">
       {/* Navbar Header */}
       <div className="flex justify-between items-center px-5 py-4 max-w-7xl mx-auto">
         {/* Logo */}
@@ -32,22 +32,50 @@ const Navbar = () => {
           <NavLink
             to="/"
             className={({ isActive }) =>
-              `hover:text-amber-300 ${
-                isActive ? "text-amber-500 font-semibold underline" : ""
+              `transition-all px-3 py-2 rounded-md ${
+                isActive
+                  ? "bg-amber-500 text-black font-semibold"
+                  : "hover:text-amber-400"
               }`
             }
           >
             Home
           </NavLink>
           <NavLink
+            to="/membership-benefits"
+            className={({ isActive }) =>
+              `transition-all px-3 py-2 rounded-md ${
+                isActive
+                  ? "bg-amber-500 text-black font-semibold"
+                  : "hover:text-amber-400"
+              }`
+            }
+          >
+            Membership
+          </NavLink>
+          <NavLink
             to="/available-cars"
             className={({ isActive }) =>
-              `hover:text-amber-300 ${
-                isActive ? "text-amber-500 font-semibold underline" : ""
+              `transition-all px-3 py-2 rounded-md ${
+                isActive
+                  ? "bg-amber-500 text-black font-semibold"
+                  : "hover:text-amber-400"
               }`
             }
           >
             Available Cars
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `transition-all px-3 py-2 rounded-md ${
+                isActive
+                  ? "bg-amber-500 text-black font-semibold"
+                  : "hover:text-amber-400"
+              }`
+            }
+          >
+            Contact Us
           </NavLink>
 
           {user && (
@@ -55,8 +83,10 @@ const Navbar = () => {
               <NavLink
                 to="/add-car"
                 className={({ isActive }) =>
-                  `hover:text-amber-300 ${
-                    isActive ? "text-amber-500 font-semibold underline" : ""
+                  `transition-all px-3 py-2 rounded-md ${
+                    isActive
+                      ? "bg-amber-500 text-black font-semibold"
+                      : "hover:text-amber-400"
                   }`
                 }
               >
@@ -65,8 +95,10 @@ const Navbar = () => {
               <NavLink
                 to="/my-cars"
                 className={({ isActive }) =>
-                  `hover:text-amber-300 ${
-                    isActive ? "text-amber-500 font-semibold underline" : ""
+                  `transition-all px-3 py-2 rounded-md ${
+                    isActive
+                      ? "bg-amber-500 text-black font-semibold"
+                      : "hover:text-amber-400"
                   }`
                 }
               >
@@ -75,8 +107,10 @@ const Navbar = () => {
               <NavLink
                 to="/my-bookings"
                 className={({ isActive }) =>
-                  `hover:text-amber-300 ${
-                    isActive ? "text-amber-500 font-semibold underline" : ""
+                  `transition-all px-3 py-2 rounded-md ${
+                    isActive
+                      ? "bg-amber-500 text-black font-semibold"
+                      : "hover:text-amber-400"
                   }`
                 }
               >
@@ -136,7 +170,7 @@ const Navbar = () => {
       {/* Collapsible Menu for Small Screens */}
       {open && (
         <div
-          className="absolute top-16 right-5 w-64 bg-black text-amber-400 z-10 shadow-lg rounded-lg transition-transform duration-300"
+          className="absolute top-16 right-0 w-full min-h-screen bg-opacity-95   bg-black text-amber-400 z-10 shadow-lg rounded-lg transition-transform duration-300"
           style={{
             transform: open ? "translateY(0)" : "translateY(-200%)",
           }}
@@ -144,32 +178,67 @@ const Navbar = () => {
           <div className="flex flex-col items-center py-5 space-y-4">
             <NavLink
               to="/"
+              onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `hover:text-amber-300 ${
-                  isActive ? "text-amber-500 font-semibold underline" : ""
+                `px-3 py-2 rounded ${
+                  isActive
+                    ? "bg-amber-500 text-black font-semibold"
+                    : "hover:text-amber-300"
                 }`
               }
             >
               Home
             </NavLink>
             <NavLink
-              to="/available-cars"
+              to="/membership-benefits"
+              onClick={() => setOpen(false)}
               className={({ isActive }) =>
-                `hover:text-amber-300 ${
-                  isActive ? "text-amber-500 font-semibold underline" : ""
+                `px-3 py-2 rounded ${
+                  isActive
+                    ? "bg-amber-500 text-black font-semibold"
+                    : "hover:text-amber-300"
+                }`
+              }
+            >
+              Membership
+            </NavLink>
+            <NavLink
+              to="/available-cars"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive
+                    ? "bg-amber-500 text-black font-semibold"
+                    : "hover:text-amber-300"
                 }`
               }
             >
               Available Cars
+            </NavLink>
+            <NavLink
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className={({ isActive }) =>
+                `px-3 py-2 rounded ${
+                  isActive
+                    ? "bg-amber-500 text-black font-semibold"
+                    : "hover:text-amber-300"
+                }`
+              }
+            >
+              Contact Us
             </NavLink>
 
             {user && (
               <>
                 <NavLink
                   to="/my-bookings"
+                  onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `hover:text-amber-300 ${
-                      isActive ? "text-amber-500 font-semibold underline" : ""
+                    `px-3 py-2 rounded ${
+                      isActive
+                        ? "bg-amber-500 text-black font-semibold"
+                        : "hover:text-amber-300"
                     }`
                   }
                 >
@@ -177,9 +246,12 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                   to="/add-car"
+                  onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `hover:text-amber-300 ${
-                      isActive ? "text-amber-500 font-semibold underline" : ""
+                    `px-3 py-2 rounded ${
+                      isActive
+                        ? "bg-amber-500 text-black font-semibold"
+                        : "hover:text-amber-300"
                     }`
                   }
                 >
@@ -187,9 +259,12 @@ const Navbar = () => {
                 </NavLink>
                 <NavLink
                   to="/my-cars"
+                  onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `hover:text-amber-300 ${
-                      isActive ? "text-amber-500 font-semibold underline" : ""
+                    `px-3 py-2 rounded ${
+                      isActive
+                        ? "bg-amber-500 text-black font-semibold"
+                        : "hover:text-amber-300"
                     }`
                   }
                 >

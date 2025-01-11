@@ -133,7 +133,7 @@ const AddCar = () => {
         </div>
         <button
           type="submit"
-          className="w-full bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 transition duration-300"
+          className="w-full   py-2 px-4 rounded bg-yellow-400 text-black hover:bg-yellow-500 transition duration-300"
         >
           Submit
         </button>

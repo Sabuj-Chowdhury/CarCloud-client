@@ -10,6 +10,9 @@ import MyCars from "../pages/MyCars";
 import MyBookings from "../pages/MyBookings";
 import PrivateRoute from "./PrivateRoute";
 import CarDetails from "../pages/CarDetails";
+import ContactUs from "../pages/ContactUs";
+
+import MembershipBenefits from "../pages/MembershipBenefits";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +68,14 @@ const router = createBrowserRouter([
             <MyBookings></MyBookings>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+      {
+        path: "/membership-benefits",
+        element: <MembershipBenefits />,
       },
     ],
   },

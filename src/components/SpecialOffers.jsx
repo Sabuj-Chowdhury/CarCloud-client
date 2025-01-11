@@ -36,17 +36,19 @@ const SpecialOffers = () => {
           {offers.map((offer, index) => (
             <motion.div
               key={index}
-              className="bg-gradient-to-t from-gray-900 via-gray-800 to-gray-700 text-gray-200 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="bg-gradient-to-t from-gray-900 via-gray-800 to-gray-700 text-gray-200 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.05 }}
             >
-              <div className="p-6">
+              <div className="p-6 flex-grow">
                 <h3 className="text-2xl font-bold mb-3 text-emerald-400">
                   {offer.title}
                 </h3>
-                <p className="text-gray-400 mb-5">{offer.description}</p>
+                <p className="text-gray-400">{offer.description}</p>
+              </div>
+              <div className="p-6">
                 <Link to="/available-cars">
                   <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
                     {offer.buttonText}

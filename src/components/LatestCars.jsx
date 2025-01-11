@@ -26,7 +26,7 @@ const LatestCars = () => {
   // console.log(cars);
 
   return (
-    <div className="container mx-auto py-12 px-4">
+    <div className="container mx-auto py-16 px-4">
       <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-emerald-400">
         Recent Listings
       </h2>

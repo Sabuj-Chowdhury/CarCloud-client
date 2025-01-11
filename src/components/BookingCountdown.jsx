@@ -25,7 +25,7 @@ const BookingCountdown = () => {
   const { hrs, mins, secs } = formatTime(timeLeft);
 
   return (
-    <div className="bg-black text-amber-400 min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="bg-black text-amber-400  mb-10 mt-15 flex flex-col items-center justify-center p-4">
       <h1 className="text-3xl md:text-5xl font-bold mb-4 text-center">
         Book Now and Save: Limited-Time Luxury Deals
       </h1>
@@ -75,19 +75,6 @@ const BookingCountdown = () => {
           Book Now
         </motion.button>
       </Link>
-
-      {/* Car Animation */}
-      <motion.div
-        className=" w-full flex justify-center"
-        animate={{ x: ["-100%", "100%"] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-      >
-        <img
-          src="https://images.unsplash.com/photo-1469285994282-454ceb49e63c?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Replace with a car image URL
-          alt="Racing Car"
-          className="w-32 md:w-48"
-        />
-      </motion.div>
     </div>
   );
 };
