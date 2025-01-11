@@ -49,7 +49,7 @@ const SpecialOffers = () => {
                 <p className="text-gray-400">{offer.description}</p>
               </div>
               <div className="p-6">
-                <Link to="/available-cars">
+                <Link to="/membership-benefits">
                   <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-full transition duration-300">
                     {offer.buttonText}
                   </button>

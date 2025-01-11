@@ -283,6 +283,7 @@ const Navbar = () => {
             ) : (
               <NavLink
                 to="/login"
+                onClick={() => setOpen(false)}
                 className={({ isActive }) =>
                   `hover:text-amber-300 ${
                     isActive ? "text-amber-500 font-semibold underline" : ""
