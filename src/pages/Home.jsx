@@ -1,3 +1,4 @@
+import AboutUs from "../components/AboutUs";
 import Banner from "../components/Banner";
 import BookingCountdown from "../components/BookingCountdown";
 import LatestCars from "../components/LatestCars";
@@ -13,6 +14,8 @@ const Home = () => {
       <WhyChooseUs></WhyChooseUs>
       {/* latest cars */}
       <LatestCars></LatestCars>
+      {/* about us  */}
+      <AboutUs></AboutUs>
       {/*  Extra section with animations */}
       <BookingCountdown></BookingCountdown>
       {/* Special offer */}
