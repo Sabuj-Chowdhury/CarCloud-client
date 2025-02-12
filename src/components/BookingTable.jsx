@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { FaCalendarAlt, FaTrashAlt } from "react-icons/fa";
 
 const BookingTable = ({ booking, openModal, handleCustomCancel }) => {
@@ -93,3 +94,9 @@ const BookingTable = ({ booking, openModal, handleCustomCancel }) => {
 };
 
 export default BookingTable;
+
+BookingTable.propTypes = {
+  booking: PropTypes.object,
+  openModal: PropTypes.func,
+  handleCustomCancel: PropTypes.func,
+};
