@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 const DateModal = ({ selectedBooking, handleDateChange }) => {
@@ -94,3 +95,8 @@ const DateModal = ({ selectedBooking, handleDateChange }) => {
 };
 
 export default DateModal;
+
+DateModal.propTypes = {
+  selectedBooking: PropTypes.object,
+  handleDateChange: PropTypes.func,
+};
