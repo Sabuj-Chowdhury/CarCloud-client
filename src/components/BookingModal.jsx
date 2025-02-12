@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const BookingModal = ({ id }) => {
   const [car, setCar] = useState({});
@@ -58,7 +59,7 @@ const BookingModal = ({ id }) => {
         `${import.meta.env.VITE_URL}/add-booking`,
         newCar
       );
-      //   console.log(data);
+      console.log(data);
 
       toast.success("Booked Successfully!");
       navigate("/my-bookings");
@@ -200,3 +201,7 @@ const BookingModal = ({ id }) => {
 };
 
 export default BookingModal;
+
+BookingModal.propTypes = {
+  id: PropTypes.number,
+};
