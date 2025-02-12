@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
+import PropTypes from "prop-types";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
@@ -71,3 +72,7 @@ const CarCard = ({ car }) => {
 };
 
 export default CarCard;
+
+CarCard.propTypes = {
+  car: PropTypes.object,
+};
