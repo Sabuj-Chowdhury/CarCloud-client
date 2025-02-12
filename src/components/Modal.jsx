@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import axios from "axios";
 import toast from "react-hot-toast";
+import PropTypes from "prop-types";
 
 const Modal = ({ carId, refreshCars }) => {
   const [car, setCar] = useState({});
@@ -150,3 +151,8 @@ const Modal = ({ carId, refreshCars }) => {
 };
 
 export default Modal;
+
+Modal.propTypes = {
+  carId: PropTypes.number,
+  refreshCars: PropTypes.func,
+};
